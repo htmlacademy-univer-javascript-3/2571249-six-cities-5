@@ -6,6 +6,8 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const PLACES_COUNT: number = 420;
+
 root.render(
-  <App />
+  <App placesCount={PLACES_COUNT}/>
 );

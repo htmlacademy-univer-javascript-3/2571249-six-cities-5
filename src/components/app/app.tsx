@@ -2,8 +2,13 @@
 import {MainScreen} from '../../pages/main-screen/main-screen.tsx';
 
 
-export function App(): React.ReactElement {
+type AppProps = {
+  placesCount: number;
+}
+
+
+export function App({placesCount}: AppProps): React.ReactElement {
   return (
-    <MainScreen />
+    <MainScreen placesCount={placesCount} />
   );
 }
