@@ -4,7 +4,7 @@ import {BookmarkButton} from '../bookmark-button/bookmark-button.tsx';
 
 type PriceWrapperProps = {
   priceInEuros: number;
-  isBookmarked: boolean;
+  isBookmarked?: boolean;
 }
 
 

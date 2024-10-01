@@ -81,7 +81,7 @@ export function MainScreen({placesCount}: MainScreenProps) {
               <PlaceCard
                 imageSource={'public/img/room.jpg'}
                 priceInEuros={80}
-                isBookmarked={true}
+                isBookmarked
                 rating={4}
                 placeTitleProps={{
                   placeName: 'Wood and stone place',
@@ -112,7 +112,7 @@ export function MainScreen({placesCount}: MainScreenProps) {
               <PlaceCard
                 imageSource={'public/img/room.jpg'}
                 priceInEuros={80}
-                isBookmarked={true}
+                isBookmarked
                 rating={4}
                 placeTitleProps={{
                   placeName: 'Wood and stone place',

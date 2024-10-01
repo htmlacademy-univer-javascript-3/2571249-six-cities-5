@@ -5,7 +5,7 @@ import {PlaceTitle} from '../place-title/place-title.tsx';
 
 type PlaceCardInfoProps = {
   priceInEuros: number;
-  isBookmarked: boolean;
+  isBookmarked?: boolean;
   rating: number;
   placeTitleProps: {
     placeName: string;

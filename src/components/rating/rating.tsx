@@ -1,4 +1,9 @@
-﻿export function Rating({rating}) {
+﻿type RatingProps = {
+  rating: number;
+}
+
+
+export function Rating({rating}: RatingProps) {
   return (
     <div className="place-card__rating rating">
       <div className="place-card__stars rating__stars">

@@ -1,5 +1,5 @@
 ﻿type BookmarkButtonProps = {
-  isActive: boolean;
+  isActive?: boolean;
 }
 
 

@@ -7,7 +7,7 @@ type PlaceCardProps = {
   markContents?: string;
   imageSource: string;
   priceInEuros: number;
-  isBookmarked: boolean;
+  isBookmarked?: boolean;
   rating: number;
   placeTitleProps: {
     placeName: string;
