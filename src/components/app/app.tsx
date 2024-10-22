@@ -8,19 +8,20 @@ import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {PrivateRoute} from '../private-route.tsx';
 import {Layout} from '../layout.tsx';
+import {Offer} from '../../interfaces/offer.ts';
 
 
 type AppProps = {
-  placesCount: number;
+  offers: Offer[];
 }
 
 
-export function App({placesCount}: AppProps): ReactElement {
+export function App({offers}: AppProps): ReactElement {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<Layout />}>
-          <Route index element={<MainScreen placesCount={placesCount} />} />
+          <Route index element={<MainScreen offers={offers} />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute isAuthorized={false}>

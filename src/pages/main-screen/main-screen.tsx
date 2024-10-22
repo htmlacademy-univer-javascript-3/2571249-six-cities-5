@@ -1,12 +1,13 @@
 ﻿import {PlaceCard} from '../../components/place-card/place-card.tsx';
+import {Offer} from '../../interfaces/offer.ts';
 
 
 type MainScreenProps = {
-  placesCount: number;
+  offers: Offer[];
 }
 
 
-export function MainScreen({placesCount}: MainScreenProps) {
+export function MainScreen({offers}: MainScreenProps) {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -50,7 +51,7 @@ export function MainScreen({placesCount}: MainScreenProps) {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+            <b className="places__found">{offers.length} places to stay in Amsterdam</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex={0}>
