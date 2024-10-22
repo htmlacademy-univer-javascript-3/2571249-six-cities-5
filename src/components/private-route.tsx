@@ -1,5 +1,6 @@
 ﻿import {ReactElement} from 'react';
-import {LoginScreen} from '../pages/login-screen/login-screen.tsx';
+import {Navigate} from 'react-router-dom';
+import {AppRoute} from '../const.ts';
 
 
 interface PrivateRouteProps {
@@ -11,5 +12,7 @@ interface PrivateRouteProps {
 export function PrivateRoute(props: PrivateRouteProps): ReactElement {
   const {isAuthorized, children} = props;
 
-  return isAuthorized ? children : <LoginScreen />;
+  return isAuthorized
+    ? children
+    : <Navigate to={AppRoute.Login} />;
 }
