@@ -1,11 +1,11 @@
-﻿import {Offer, OfferType} from '../interfaces/offer.ts';
+﻿import {Offer} from '../models/offer.ts';
 
 
 export const OfferMocks: Offer[] = [
   {
     id: '0',
     title: 'House0',
-    type: OfferType.House,
+    type: 'house',
     price: 100,
     city: {
       name: 'City0',

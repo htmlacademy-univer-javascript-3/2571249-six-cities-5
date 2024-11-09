@@ -8,10 +8,10 @@ import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {PrivateRoute} from '../private-route.tsx';
 import {Layout} from '../layout.tsx';
-import {Offer} from '../../interfaces/offer.ts';
+import {Offer} from '../../models/offer.ts';
 
 
-type AppProps = {
+interface AppProps {
   offers: Offer[];
 }
 

@@ -1,12 +1,6 @@
-﻿export enum OfferType {
-  Apartment = 'apartment',
-  Room = 'room',
-  House = 'house',
-  Hotel = 'hotel',
-}
+﻿type OfferType = 'apartment' | 'room' | 'house' | 'hotel';
 
-
-export interface OfferPreview {
+export type OfferPreview = {
   id: string;
   title: string;
   type: OfferType;
@@ -30,7 +24,7 @@ export interface OfferPreview {
   previewImage: string;
 }
 
-export interface Offer extends OfferPreview {
+export type Offer = OfferPreview & {
   description: string;
   bedrooms: number;
   goods: string[];

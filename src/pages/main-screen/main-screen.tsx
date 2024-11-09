@@ -1,5 +1,5 @@
-﻿import {PlaceCard} from '../../components/place-card/place-card.tsx';
-import {Offer} from '../../interfaces/offer.ts';
+﻿import {Offer} from '../../models/offer.ts';
+import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
 
 
 type MainScreenProps = {
@@ -67,60 +67,7 @@ export function MainScreen({offers}: MainScreenProps) {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              <PlaceCard
-                markContents={'Premium'}
-                imageSource={'public/img/apartment-01.jpg'}
-                priceInEuros={120}
-                isBookmarked={false}
-                rating={4}
-                placeTitleProps={{
-                  placeName: 'Beautiful & luxurious apartment at great location',
-                  placeType: 'Apartment',
-                }}
-              />
-              <PlaceCard
-                imageSource={'public/img/room.jpg'}
-                priceInEuros={80}
-                isBookmarked
-                rating={4}
-                placeTitleProps={{
-                  placeName: 'Wood and stone place',
-                  placeType: 'Room',
-                }}
-              />
-              <PlaceCard
-                imageSource={'public/img/apartment-02.jpg'}
-                priceInEuros={132}
-                isBookmarked={false}
-                rating={4}
-                placeTitleProps={{
-                  placeName: 'Canal View Prinsengracht',
-                  placeType: 'Apartment',
-                }}
-              />
-              <PlaceCard
-                markContents={'Premium'}
-                imageSource={'public/img/apartment-03.jpg'}
-                priceInEuros={180}
-                isBookmarked={false}
-                rating={5}
-                placeTitleProps={{
-                  placeName: 'Nice, cozy, warm big bed apartment',
-                  placeType: 'Apartment',
-                }}
-              />
-              <PlaceCard
-                imageSource={'public/img/room.jpg'}
-                priceInEuros={80}
-                isBookmarked
-                rating={4}
-                placeTitleProps={{
-                  placeName: 'Wood and stone place',
-                  placeType: 'Room',
-                }}
-              />
-            </div>
+            <OfferCardList offers={offers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>
