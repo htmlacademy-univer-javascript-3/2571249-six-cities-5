@@ -1,9 +1,4 @@
-﻿import {City} from './city.ts';
-import {Location} from './location.ts';
-import {User} from './user.ts';
-
-
-export enum OfferType {
+﻿export enum OfferType {
   Apartment = 'apartment',
   Room = 'room',
   House = 'house',
@@ -16,8 +11,19 @@ export interface OfferPreview {
   title: string;
   type: OfferType;
   price: number;
-  city: City;
-  location: Location;
+  city: {
+    name: string;
+    location: {
+      longitude: number;
+      latitude: number;
+      zoom: number;
+    };
+  };
+  location: {
+    longitude: number;
+    latitude: number;
+    zoom: number;
+  };
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
@@ -28,7 +34,11 @@ export interface Offer extends OfferPreview {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: User;
+  host: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
   images: string[];
   maxAdults: number;
 }

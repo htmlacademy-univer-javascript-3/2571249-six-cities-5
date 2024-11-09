@@ -1,7 +1,4 @@
 ﻿import {Offer, OfferType} from '../interfaces/offer.ts';
-import {CityMocks} from './cities.ts';
-import {LocationMocks} from './locations.ts';
-import {UserMocks} from './users.ts';
 
 
 export const OfferMocks: Offer[] = [
@@ -10,8 +7,19 @@ export const OfferMocks: Offer[] = [
     title: 'House0',
     type: OfferType.House,
     price: 100,
-    city: CityMocks[0],
-    location: LocationMocks[0],
+    city: {
+      name: 'City0',
+      location: {
+        latitude: 0,
+        longitude: 0,
+        zoom: 8
+      }
+    },
+    location: {
+      latitude: 0,
+      longitude: 0,
+      zoom: 8
+    },
     isFavorite: true,
     isPremium: true,
     rating: 5,
@@ -19,62 +27,12 @@ export const OfferMocks: Offer[] = [
     description: 'Cool house 0',
     bedrooms: 1,
     goods: ['Shower', 'Kitchen'],
-    host: UserMocks[0],
+    host: {
+      name: 'User0',
+      avatarUrl: 'avatar.svg',
+      isPro: true
+    },
     images: ['apartment-01.jpg'],
     maxAdults: 1,
-  },
-  {
-    id: '1',
-    title: 'House1',
-    type: OfferType.House,
-    price: 101,
-    city: CityMocks[1],
-    location: LocationMocks[1],
-    isFavorite: false,
-    isPremium: false,
-    rating: 4,
-    previewImage: 'apartment-02.jpg',
-    description: 'Cool house 1',
-    bedrooms: 2,
-    goods: ['Fireplace'],
-    host: UserMocks[1],
-    images: ['apartment-02.jpg'],
-    maxAdults: 2,
-  },
-  {
-    id: '2',
-    title: 'House2',
-    type: OfferType.House,
-    price: 102,
-    city: CityMocks[2],
-    location: LocationMocks[2],
-    isFavorite: true,
-    isPremium: false,
-    rating: 3,
-    previewImage: 'apartment-03.jpg',
-    description: 'Cool house 2',
-    bedrooms: 3,
-    goods: ['Shower', 'Kitchen'],
-    host: UserMocks[2],
-    images: ['apartment-03.jpg'],
-    maxAdults: 3,
-  },
-  {
-    id: '3',
-    title: 'Cool Apartment',
-    type: OfferType.Apartment,
-    price: 103,
-    city: CityMocks[3],
-    location: LocationMocks[3],
-    isFavorite: false,
-    isPremium: true,
-    rating: 2,
-    previewImage: 'apartment-small-03.jpg',
-    description: 'It\'s a cool apartment...',
-    bedrooms: 4,
-    goods: ['Something'],
-    host: UserMocks[3],
-    images: ['apartment-small-03.jpg'],
-    maxAdults: 4,
   },
 ];
