@@ -1,20 +1,56 @@
 ﻿import {Offer} from '../../models/offer.ts';
 import {Link} from 'react-router-dom';
+import {capitalize} from '../../helper-functions.ts';
+import {AppRoute, CardType} from '../../const.ts';
+import cn from 'classnames';
 
 
-type OfferCardProps = Omit<Offer, 'city' | 'location'>;
+type OfferCardProps = Omit<Offer, 'city' | 'location'> & {
+  onChangeActiveCardId: (id: string | null) => void;
+  cardType: CardType;
+};
 
 
-export function OfferCard({id, title, type, price, isFavorite, isPremium, rating, previewImage}: OfferCardProps) {
+export function OfferCard({
+  id,
+  title,
+  type,
+  price,
+  isFavorite,
+  isPremium,
+  rating,
+  previewImage,
+  onChangeActiveCardId,
+  cardType,
+}: OfferCardProps) {
+  const offerUrl: string = AppRoute.Offer.replace(':id', id);
+
   return (
-    <article className="cities__card place-card">
+    <article
+      className={cn('place-card', {
+        'cities__card': cardType === CardType.Main,
+        'favorites__card': cardType === CardType.Favorite,
+      })}
+      onMouseEnter={() => onChangeActiveCardId(id)}
+      onMouseLeave={() => onChangeActiveCardId(null)}
+    >
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image"/>
+      <div className={cn('place-card__image-wrapper', {
+        'cities__image-wrapper': cardType === CardType.Main,
+        'favorites__image-wrapper': cardType === CardType.Favorite,
+      })}
+      >
+        <Link to={offerUrl}>
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={cardType === CardType.Main ? 260 : 150}
+            height={cardType === CardType.Favorite ? 200 : 110}
+            alt="Place image"
+          />
         </Link>
       </div>
       <div className="place-card__info">
@@ -42,11 +78,11 @@ export function OfferCard({id, title, type, price, isFavorite, isPremium, rating
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>
+          <Link to={offerUrl}>
             {title}
           </Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{capitalize(type)}</p>
       </div>
     </article>
   );

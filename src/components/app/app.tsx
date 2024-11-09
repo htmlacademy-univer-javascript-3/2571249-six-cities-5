@@ -24,8 +24,8 @@ export function App({offers}: AppProps): ReactElement {
           <Route index element={<MainScreen offers={offers} />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
-            <PrivateRoute isAuthorized={false}>
-              <FavoritesScreen />
+            <PrivateRoute isAuthorized>
+              <FavoritesScreen offers={offers} />
             </PrivateRoute>
           }
           />

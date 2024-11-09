@@ -1,10 +1,28 @@
-﻿export function FavoritesScreen() {
+﻿import {Offer} from '../../models/offer.ts';
+
+
+type FavoritesScreenProps = {
+  offers: Offer[];
+}
+
+
+export function FavoritesScreen({offers}: FavoritesScreenProps) {
+  const favorites: Offer[] = offers.filter((offer) => offer.isFavorite);
+  const favoritesDictionary: { [key: string]: Offer[] } = {};
+  for (const offer of favorites) {
+    if (!favoritesDictionary[offer.city.name]) {
+      favoritesDictionary[offer.city.name] = [];
+    }
+    favoritesDictionary[offer.city.name].push(offer);
+  }
+
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
         <section className="favorites">
           <h1 className="favorites__title">Saved listing</h1>
           <ul className="favorites__list">
+
             <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">

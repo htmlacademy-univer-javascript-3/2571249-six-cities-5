@@ -6,8 +6,9 @@ export function Layout(): ReactElement {
   return (
     <>
       <h2>* В будущем здесь появится правильная общая шапка</h2>
-      <hr />
-      <Outlet />
+      <hr/>
+      <Outlet/>
+      <hr/>
     </>
   );
 }
