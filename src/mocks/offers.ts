@@ -74,7 +74,7 @@ export const OfferMocks: Offer[] = [
     type: 'house',
     price: 200,
     city: {
-      name: 'City2',
+      name: 'Cool City',
       location: {
         latitude: 0,
         longitude: 0,

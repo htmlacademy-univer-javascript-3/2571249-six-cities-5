@@ -6,7 +6,7 @@ import cn from 'classnames';
 
 
 type OfferCardProps = Omit<Offer, 'city' | 'location'> & {
-  onChangeActiveCardId: (id: string | null) => void;
+  onChangeActiveCardId?: (id: string | null) => void;
   cardType: CardType;
 };
 
@@ -31,8 +31,8 @@ export function OfferCard({
         'cities__card': cardType === CardType.Main,
         'favorites__card': cardType === CardType.Favorite,
       })}
-      onMouseEnter={() => onChangeActiveCardId(id)}
-      onMouseLeave={() => onChangeActiveCardId(null)}
+      onMouseEnter={() => onChangeActiveCardId ? onChangeActiveCardId(id) : null}
+      onMouseLeave={() => onChangeActiveCardId ? onChangeActiveCardId(null) : null}
     >
       {isPremium &&
         <div className="place-card__mark">
