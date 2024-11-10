@@ -27,11 +27,11 @@ export function FavoritesScreen({offers}: FavoritesScreenProps) {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              {favoritesByCity.map((group) => (
+              {favoritesByCity.map(([c, o]) => (
                 <FavoriteList
-                  key={group[0]}
-                  city={group[0]}
-                  offers={group[1]}
+                  key={c}
+                  city={c}
+                  offers={o}
                 />
               ))}
             </ul>

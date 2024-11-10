@@ -11,7 +11,7 @@ type OfferCardListProps = {
 
 
 export function OfferCardList({offers}: OfferCardListProps): ReactElement {
-  const [, setActiveCardId] = useState<Nullable<string>>();
+  const [, setActiveCardId] = useState<Nullable<string>>(null);
   const onChangeActiveCardId = (id: string | null): void => {
     setActiveCardId(id);
   };
