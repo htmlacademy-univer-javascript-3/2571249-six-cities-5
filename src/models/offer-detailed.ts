@@ -1,7 +1,7 @@
 ﻿import {OfferType} from './offer-type.ts';
 
 
-export type Offer = {
+export type OfferDetailed = {
   id: string;
   title: string;
   type: OfferType;
@@ -22,5 +22,14 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-  previewImage: string;
+  description: string;
+  bedrooms: number;
+  goods: string[];
+  host: {
+    name: string;
+    avatarUrl: string;
+    isPro: boolean;
+  };
+  images: string[];
+  maxAdults: number;
 }

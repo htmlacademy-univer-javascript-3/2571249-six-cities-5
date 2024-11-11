@@ -1,5 +1,5 @@
-﻿import {Offer} from '../../models/offer.ts';
-import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
+﻿import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
+import {Offer} from '../../models/offer.ts';
 
 
 type MainScreenProps = {

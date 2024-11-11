@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import {App} from './components/app/app.tsx';
-import {OfferMocks} from './mocks/offers.ts';
+import {OFFER_LIST_MOCK, OFFER_DETAILED_MOCKS} from './mocks/offers.ts';
+import {REVIEW_LIST_MOCK} from './mocks/reviews.ts';
 
 
 const root = ReactDOM.createRoot(
@@ -9,6 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <App
-    offers={OfferMocks}
+    offerList={OFFER_LIST_MOCK}
+    offersDetailed={OFFER_DETAILED_MOCKS}
+    reviewList={REVIEW_LIST_MOCK}
   />
 );

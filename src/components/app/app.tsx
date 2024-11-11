@@ -8,28 +8,32 @@ import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
 import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
 import {PrivateRoute} from '../private-route.tsx';
 import {Layout} from '../layout.tsx';
+import {OfferDetailed} from '../../models/offer-detailed.ts';
 import {Offer} from '../../models/offer.ts';
+import {Review} from '../../models/review.ts';
 
 
-interface AppProps {
-  offers: Offer[];
+type AppProps = {
+  offerList: Offer[];
+  offersDetailed: OfferDetailed[];
+  reviewList: Review[];
 }
 
 
-export function App({offers}: AppProps): ReactElement {
+export function App({offerList, offersDetailed, reviewList}: AppProps): ReactElement {
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<Layout />}>
-          <Route index element={<MainScreen offers={offers} />} />
+          <Route index element={<MainScreen offers={offerList} />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favorites} element={
-            <PrivateRoute isAuthorized={false}>
-              <FavoritesScreen offers={offers} />
+            <PrivateRoute isAuthorized>
+              <FavoritesScreen offers={offerList} />
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Offer} element={<OfferScreen />} />
+          <Route path={AppRoute.Offer} element={<OfferScreen offers={offersDetailed} reviews={reviewList} />} />
         </Route>
         <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
       </Routes>
