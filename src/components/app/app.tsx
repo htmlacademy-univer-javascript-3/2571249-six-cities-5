@@ -33,7 +33,9 @@ export function App({offerList, offersDetailed, reviewList}: AppProps): ReactEle
             </PrivateRoute>
           }
           />
-          <Route path={AppRoute.Offer} element={<OfferScreen offers={offersDetailed} reviews={reviewList} />} />
+          <Route path={AppRoute.Offer} element={
+            <OfferScreen offers={offersDetailed} reviews={reviewList} nearbyOffers={offerList}/>}
+          />
         </Route>
         <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
       </Routes>

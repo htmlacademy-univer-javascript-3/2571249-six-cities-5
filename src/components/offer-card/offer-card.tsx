@@ -30,6 +30,7 @@ export function OfferCard({
       className={cn('place-card', {
         'cities__card': cardType === CardType.Main,
         'favorites__card': cardType === CardType.Favorite,
+        'near-places__card': cardType === CardType.Main,
       })}
       onMouseEnter={() => onChangeActiveCardId ? onChangeActiveCardId(id) : null}
       onMouseLeave={() => onChangeActiveCardId ? onChangeActiveCardId(null) : null}
@@ -41,14 +42,15 @@ export function OfferCard({
       <div className={cn('place-card__image-wrapper', {
         'cities__image-wrapper': cardType === CardType.Main,
         'favorites__image-wrapper': cardType === CardType.Favorite,
+        'near-places__image-wrapper': cardType === CardType.Nearby,
       })}
       >
         <Link to={offerUrl}>
           <img
             className="place-card__image"
             src={previewImage}
-            width={cardType === CardType.Main ? 260 : 150}
-            height={cardType === CardType.Favorite ? 200 : 110}
+            width={(cardType === CardType.Main || cardType === CardType.Nearby) ? 260 : 150}
+            height={(cardType === CardType.Main || cardType === CardType.Nearby) ? 200 : 110}
             alt="Place image"
           />
         </Link>

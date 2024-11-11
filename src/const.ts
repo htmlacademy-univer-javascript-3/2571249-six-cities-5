@@ -9,4 +9,5 @@
 export enum CardType {
   Main,
   Favorite,
+  Nearby,
 }
