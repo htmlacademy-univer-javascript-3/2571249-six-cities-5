@@ -1,19 +1,18 @@
-﻿import {ReactElement, useState} from 'react';
+﻿import {ReactElement} from 'react';
 import {Offer} from '../../models/offer.ts';
 import {OfferCard} from '../offer-card/offer-card.tsx';
-import {Nullable} from 'vitest';
 import {CardType} from '../../const.ts';
 
 
 type OfferCardListProps = {
   offers: Offer[];
+  setActiveOfferId: (id: string | null) => void;
 }
 
 
-export function OfferCardList({offers}: OfferCardListProps): ReactElement {
-  const [, setActiveCardId] = useState<Nullable<string>>(null);
-  const onChangeActiveCardId = (id: string | null): void => {
-    setActiveCardId(id);
+export function OfferCardList({offers, setActiveOfferId}: OfferCardListProps): ReactElement {
+  const onChangeActiveOfferId = (id: string | null): void => {
+    setActiveOfferId(id);
   };
 
   return (
@@ -22,7 +21,7 @@ export function OfferCardList({offers}: OfferCardListProps): ReactElement {
         <OfferCard
           key={offer.id}
           {...offer}
-          onChangeActiveCardId={onChangeActiveCardId}
+          onChangeActiveOfferId={onChangeActiveOfferId}
           cardType={CardType.Main}
         />
       ))}

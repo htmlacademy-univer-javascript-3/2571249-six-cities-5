@@ -6,7 +6,7 @@ import cn from 'classnames';
 
 
 type OfferCardProps = Omit<Offer, 'city' | 'location'> & {
-  onChangeActiveCardId?: (id: string | null) => void;
+  onChangeActiveOfferId?: (id: string | null) => void;
   cardType: CardType;
 };
 
@@ -20,7 +20,7 @@ export function OfferCard({
   isPremium,
   rating,
   previewImage,
-  onChangeActiveCardId,
+  onChangeActiveOfferId,
   cardType,
 }: OfferCardProps) {
   const offerUrl: string = AppRoute.Offer.replace(':id', id);
@@ -32,8 +32,8 @@ export function OfferCard({
         'favorites__card': cardType === CardType.Favorite,
         'near-places__card': cardType === CardType.Main,
       })}
-      onMouseEnter={() => onChangeActiveCardId ? onChangeActiveCardId(id) : null}
-      onMouseLeave={() => onChangeActiveCardId ? onChangeActiveCardId(null) : null}
+      onMouseEnter={() => onChangeActiveOfferId ? onChangeActiveOfferId(id) : null}
+      onMouseLeave={() => onChangeActiveOfferId ? onChangeActiveOfferId(null) : null}
     >
       {isPremium &&
         <div className="place-card__mark">
