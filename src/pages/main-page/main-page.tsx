@@ -2,14 +2,15 @@
 import {Offer} from '../../models/offer.ts';
 import Map from '../../components/map/map.tsx';
 import {useState} from 'react';
+import {CardType} from '../../const.ts';
 
 
-type MainScreenProps = {
+type MainPageProps = {
   offers: Offer[];
 }
 
 
-export function MainScreen({offers}: MainScreenProps) {
+export function MainPage({offers}: MainPageProps) {
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   return (
@@ -51,6 +52,7 @@ export function MainScreen({offers}: MainScreenProps) {
           </ul>
         </section>
       </div>
+
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
@@ -74,8 +76,10 @@ export function MainScreen({offers}: MainScreenProps) {
             <OfferCardList
               offers={offers}
               setActiveOfferId={setActiveOfferId}
+              cardType={CardType.Main}
             />
           </section>
+
           <div className="cities__right-section">
             <section className="cities__map map">
               <Map

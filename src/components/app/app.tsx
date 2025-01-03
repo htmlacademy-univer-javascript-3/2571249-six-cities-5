@@ -1,11 +1,11 @@
 ﻿import {ReactElement} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
-import {MainScreen} from '../../pages/main-screen/main-screen.tsx';
-import {LoginScreen} from '../../pages/login-screen/login-screen.tsx';
-import {FavoritesScreen} from '../../pages/favorites-screen/favorites-screen.tsx';
-import {OfferScreen} from '../../pages/offer-screen/offer-screen.tsx';
-import {NotFoundScreen} from '../../pages/not-found-screen/not-found-screen.tsx';
+import {MainPage} from '../../pages/main-page/main-page.tsx';
+import {LoginPage} from '../../pages/login-page/login-page.tsx';
+import {FavoritesPage} from '../../pages/favorites-page/favorites-page.tsx';
+import {OfferPage} from '../../pages/offer-page/offer-page.tsx';
+import {NotFoundPage} from '../../pages/not-found-page/not-found-page.tsx';
 import {PrivateRoute} from '../private-route.tsx';
 import {Layout} from '../layout.tsx';
 import {OfferDetailed} from '../../models/offer-detailed.ts';
@@ -25,20 +25,20 @@ export function App({offerList, offersDetailed, reviewList}: AppProps): ReactEle
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<Layout />}>
-          <Route index element={<MainScreen offers={offerList} />} />
-          <Route path={AppRoute.Login} element={<LoginScreen />} />
+          <Route index element={<MainPage offers={offerList} />} />
+          <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute isAuthorized>
-              <FavoritesScreen offers={offerList} />
+              <FavoritesPage offers={offerList} />
             </PrivateRoute>
           }
           />
           <Route path={AppRoute.Offer} element={
-            <OfferScreen offers={offersDetailed} reviews={reviewList} nearbyOffers={offerList}/>
+            <OfferPage offers={offersDetailed} reviews={reviewList} nearbyOffers={offerList}/>
           }
           />
         </Route>
-        <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
+        <Route path={AppRoute.NotFound} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
