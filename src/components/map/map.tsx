@@ -52,7 +52,7 @@ function Map({location, offers, activeOfferId, type}: MapProps): ReactElement {
           .addTo(map);
       });
     }
-  }, [map, offers, activeOfferId]);
+  }, [map, offers, activeOfferId, activeCustomIcon, defaultCustomIcon]);
 
   return (
     <div

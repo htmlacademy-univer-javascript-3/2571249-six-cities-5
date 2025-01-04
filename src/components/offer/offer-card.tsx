@@ -1,12 +1,14 @@
-﻿import {ReactElement} from 'react';
+﻿import {ReactElement, useState} from 'react';
 import {Link} from 'react-router-dom';
 import cn from 'classnames';
 
-import {AppRoute, CardType} from '../../const.ts';
+import {AppRoute, AuthorizationStatus, CardType} from '../../const.ts';
 import {Offer} from '../../models/offer.ts';
 import {capitalize} from '../../helper-functions.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {fetchOfferAction} from '../../store/api-actions.ts';
+import {fetchOfferAction, toggleFavoriteStatusAction} from '../../store/api-actions.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {getAuthStatus} from '../../store/user/selectors.ts';
 
 
 type OfferCardProps = Omit<Offer, 'city' | 'location'> & {
@@ -27,12 +29,19 @@ function OfferCard({
   onChangeActiveOfferId,
   cardType,
 }: OfferCardProps): ReactElement {
+  const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
+  const [bookmarkActive, setBookmarkActive] = useState(isFavorite || false);
 
   const offerUrl: string = AppRoute.Offer.replace(':id', id);
 
   const handleFetchOffer = (offerId: string) => {
     dispatch(fetchOfferAction(offerId));
+  };
+
+  const handleBookmarkClicked = () => {
+    dispatch(toggleFavoriteStatusAction({ offerId: id, status: !bookmarkActive }));
+    setBookmarkActive(!bookmarkActive);
   };
 
   return (
@@ -72,10 +81,12 @@ function OfferCard({
             <span className="place-card__price-text">&nbsp;&#47;&nbsp;night</span>
           </div>
           <button
-            className={isFavorite ?
+            className={bookmarkActive ?
               'place-card__bookmark-button place-card__bookmark-button--active button' :
               'place-card__bookmark-button button'}
             type="button"
+            onClick={handleBookmarkClicked}
+            disabled={authStatus !== AuthorizationStatus.Authorized}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>

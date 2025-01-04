@@ -9,9 +9,17 @@ import {UserCredentials} from '../models/user-credentials.ts';
 import {OfferDetailed} from '../models/offer-detailed.ts';
 import {Review, Reviews} from '../models/review.ts';
 import {removeToken, setToken} from '../services/tokens.ts';
-import {setOffers, setListLoadingStatus} from './offers-list/reducers.ts';
+import {setOffers, setListLoadingStatus, setFavoriteOffers, setFavoriteStatus} from './offers-list/reducers.ts';
 import {addReview, setDetailsLoadingStatus, setOfferDetails} from './offer-details/reducers.ts';
-import {setAuthStatus, setUserEmail, setUserInfo} from './user/reducers.ts';
+import {
+  decFavoriteCount,
+  incFavoriteCount,
+  setAuthStatus,
+  setFavoriteCount,
+  setUserEmail,
+  setUserInfo
+} from './user/reducers.ts';
+
 
 export const fetchOffersAction = createAsyncThunk<
   void, undefined,
@@ -24,6 +32,33 @@ export const fetchOffersAction = createAsyncThunk<
     const { data } = await api.get<Offers>(ApiRoutes.Offers);
     dispatch(setListLoadingStatus(false));
     dispatch(setOffers(data));
+  });
+
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  void, undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('FETCH_FAVORITE_OFFERS', async (_arg, {dispatch, extra: api}) => {
+    dispatch(setListLoadingStatus(true));
+    const { data } = await api.get<Offers>(ApiRoutes.Favorite);
+    dispatch(setListLoadingStatus(false));
+    dispatch(setFavoriteOffers(data));
+    dispatch(setFavoriteCount(data.length));
+  });
+
+export const toggleFavoriteStatusAction = createAsyncThunk<
+  void, { offerId: string; status: boolean },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('TOGGLE_FAVORITE_STATUS', async ({offerId, status}, {dispatch, extra: api}) => {
+    const url = `${ApiRoutes.Favorite}/${offerId}/${+status}`;
+    const { data } = await api.post<OfferDetailed>(url, { status: +status });
+    dispatch(setFavoriteStatus(data));
+    dispatch(status ? incFavoriteCount() : decFavoriteCount());
   });
 
 export const fetchOfferAction = createAsyncThunk<

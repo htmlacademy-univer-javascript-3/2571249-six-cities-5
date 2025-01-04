@@ -9,6 +9,7 @@ const initialState: UserData = {
   authStatus: AuthorizationStatus.Unknown,
   userInfo: undefined,
   userEmail: '',
+  favoriteCount: 0,
 };
 
 export const userData = createSlice({
@@ -24,7 +25,23 @@ export const userData = createSlice({
     setUserEmail: (state: UserData, action: PayloadAction<string>)=> {
       state.userEmail = action.payload;
     },
+    setFavoriteCount: (state: UserData, action: PayloadAction<number>)=> {
+      state.favoriteCount = action.payload;
+    },
+    incFavoriteCount: (state: UserData)=> {
+      state.favoriteCount++;
+    },
+    decFavoriteCount: (state: UserData)=> {
+      state.favoriteCount--;
+    },
   }
 });
 
-export const { setAuthStatus, setUserInfo, setUserEmail } = userData.actions;
+export const {
+  setAuthStatus,
+  setUserInfo,
+  setUserEmail,
+  setFavoriteCount,
+  incFavoriteCount,
+  decFavoriteCount
+} = userData.actions;

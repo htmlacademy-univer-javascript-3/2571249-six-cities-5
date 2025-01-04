@@ -1,14 +1,20 @@
-﻿import {ReactElement} from 'react';
+﻿import {ReactElement, useState} from 'react';
 
 import {OfferDetailed} from '../../models/offer-detailed.ts';
 import {capitalize} from '../../helper-functions.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {toggleFavoriteStatusAction} from '../../store/api-actions.ts';
+import {AuthorizationStatus} from '../../const.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {getAuthStatus} from '../../store/user/selectors.ts';
 
 
-type OfferDetailsProps = Omit<OfferDetailed, 'id | city | location | images'>;
+type OfferDetailsProps = OfferDetailed;
 
 
 function OfferDetails(
   {
+    id,
     title,
     type,
     price,
@@ -21,6 +27,15 @@ function OfferDetails(
     host,
     maxAdults
   }: OfferDetailsProps): ReactElement {
+  const authStatus = useAppSelector(getAuthStatus);
+  const dispatch = useAppDispatch();
+  const [bookmarkActive, setBookmarkActive] = useState(isFavorite || false);
+
+  const handleBookmarkClicked = () => {
+    dispatch(toggleFavoriteStatusAction({offerId: id, status: !bookmarkActive}));
+    setBookmarkActive(!bookmarkActive);
+  };
+
   return (
     <>
       {isPremium &&
@@ -32,10 +47,12 @@ function OfferDetails(
           {title}
         </h1>
         <button
-          className={isFavorite ?
+          className={bookmarkActive ?
             'offer__bookmark-button offer__bookmark-button--active button' :
             'offer__bookmark-button button'}
           type='button'
+          onClick={handleBookmarkClicked}
+          disabled={authStatus !== AuthorizationStatus.Authorized}
         >
           <svg className="offer__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>

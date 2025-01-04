@@ -3,7 +3,7 @@
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {getAuthStatus, getUserEmail, getUserInfo} from '../../store/user/selectors.ts';
+import {getAuthStatus, getFavoriteCount, getUserEmail, getUserInfo} from '../../store/user/selectors.ts';
 import {logoutAction} from '../../store/api-actions.ts';
 
 
@@ -11,6 +11,7 @@ function Header() {
   const authStatus = useAppSelector(getAuthStatus);
   const userInfo = useAppSelector(getUserInfo);
   const userEmail = useAppSelector(getUserEmail);
+  const favoriteCount = useAppSelector(getFavoriteCount);
   const dispatch = useAppDispatch();
 
   const isAuthorized = () => authStatus === AuthorizationStatus.Authorized;
@@ -38,7 +39,7 @@ function Header() {
                         <img src={userInfo?.avatarUrl} alt="user_avatar"></img>
                       </div>
                       <span className="header__user-name user__name">{userEmail}</span>
-                      <span className="header__favorite-count">3</span>
+                      <span className="header__favorite-count">{favoriteCount}</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">
