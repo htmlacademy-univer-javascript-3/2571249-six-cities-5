@@ -31,49 +31,49 @@ export const CITIES: Cities = [
   {
     name: 'Paris',
     location: {
-      latitude: 48.864716,
-      longitude: 2.349014,
-      zoom: 12,
+      latitude: 48.85661,
+      longitude: 2.351499,
+      zoom: 13,
     }
   },
   {
     name: 'Cologne',
     location: {
-      latitude: 50.935173,
-      longitude: 6.953101,
-      zoom: 12,
+      latitude: 50.938361,
+      longitude: 6.959974,
+      zoom: 13,
     }
   },
   {
     name: 'Brussels',
     location: {
-      latitude: 50.85045,
-      longitude: 4.34878,
-      zoom: 12,
+      latitude: 50.846557,
+      longitude: 4.351697,
+      zoom: 13,
     }
   },
   {
     name: 'Amsterdam',
     location: {
-      latitude: 52.377956,
-      longitude: 4.897070,
-      zoom: 12,
+      latitude: 52.37454,
+      longitude: 4.897976,
+      zoom: 13,
     }
   },
   {
     name: 'Hamburg',
     location: {
-      latitude: 53.551086,
-      longitude: 9.993682,
-      zoom: 12,
+      latitude: 53.550341,
+      longitude: 10.000654,
+      zoom: 13,
     }
   },
   {
     name: 'Dusseldorf',
     location: {
-      latitude: 51.233334,
-      longitude: 6.783333,
-      zoom: 12,
+      latitude: 51.225402,
+      longitude: 6.776314,
+      zoom: 13,
     }
   },
 ];
