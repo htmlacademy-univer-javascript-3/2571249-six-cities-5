@@ -1,5 +1,5 @@
 ﻿import {createReducer} from '@reduxjs/toolkit';
-import {fillOffersAction, setActiveCityAction, setActiveSortingTypeAction} from './action.ts';
+import {fillOffersAction, setActiveCityAction, setActiveSortingTypeAction} from './actions.ts';
 import {OFFER_LIST_MOCK} from '../mocks/offers.ts';
 import {Offers} from '../models/offer.ts';
 import {CITY_LIST_MOCK} from '../mocks/cities.ts';

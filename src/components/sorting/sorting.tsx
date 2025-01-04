@@ -2,7 +2,7 @@
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {SortingType} from '../../const.ts';
-import {setActiveSortingTypeAction} from '../../store/action.ts';
+import {setActiveSortingTypeAction} from '../../store/actions.ts';
 import cn from 'classnames';
 
 

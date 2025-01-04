@@ -1,10 +1,11 @@
 ﻿import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
 import Map from '../../components/map/map.tsx';
 import {useState} from 'react';
-import {CardType, SORTERS} from '../../const.ts';
+import {CardType} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import CityList from '../../components/city-list/city-list.tsx';
 import Sorting from '../../components/sorting/sorting.tsx';
+import {getSorter} from '../../helper-functions.ts';
 
 
 export function MainPage() {
@@ -13,7 +14,7 @@ export function MainPage() {
 
   const offers = useAppSelector((state) => state.offers
     .filter((o) => o.city.name === activeCity.name))
-    .sort(SORTERS[activeSortingType]);
+    .sort(getSorter(activeSortingType));
 
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
