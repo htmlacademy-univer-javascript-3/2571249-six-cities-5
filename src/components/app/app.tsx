@@ -2,8 +2,8 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import {AppRoute} from '../../const.ts';
-import {store} from '../../store';
-import {checkAuthorizationAction, fetchOffersAction} from '../../store/api-actions.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {checkAuthorizationAction, fetchFavoriteOffersAction, fetchOffersAction} from '../../store/api-actions.ts';
 
 import Layout from '../layout.tsx';
 import PrivateRoute from '../private-route/private-route.tsx';
@@ -15,8 +15,10 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page.tsx';
 
 
 function App(): ReactElement {
-  store.dispatch(fetchOffersAction());
-  store.dispatch(checkAuthorizationAction());
+  const dispatch = useAppDispatch();
+  dispatch(fetchOffersAction());
+  dispatch(fetchFavoriteOffersAction());
+  dispatch(checkAuthorizationAction());
 
   return (
     <BrowserRouter>
