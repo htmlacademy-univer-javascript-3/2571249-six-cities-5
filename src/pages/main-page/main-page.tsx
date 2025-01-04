@@ -1,17 +1,35 @@
-﻿import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
-import Map from '../../components/map/map.tsx';
-import {useState} from 'react';
-import {CardType, MapType} from '../../const.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import CityList from '../../components/city-list/city-list.tsx';
-import Sorting from '../../components/sorting/sorting.tsx';
-import {getSorter} from '../../helper-functions.ts';
-import Spinner from '../../components/spinner/spinner.tsx';
+﻿import {useState} from 'react';
 import cn from 'classnames';
+
+import {CardType, MapType, SortingType} from '../../const.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+
 import Header from '../../components/header/header.tsx';
+import Spinner from '../../components/spinner/spinner.tsx';
+import Sorting from '../../components/sorting/sorting.tsx';
+import CityList from '../../components/city-list/city-list.tsx';
+import OfferCardList from '../../components/offer/offer-card-list.tsx';
+import Map from '../../components/map/map.tsx';
+import {Offer} from '../../models/offer.ts';
 
 
-export function MainPage() {
+const getSorter = (sortingType: SortingType) => {
+  switch (sortingType) {
+    case SortingType.Popular:
+      return () => 0;
+    case SortingType.PriceLowToHigh:
+      return (a: Offer, b: Offer) => a.price - b.price;
+    case SortingType.PriceHighToLow:
+      return (a: Offer, b: Offer) => b.price - a.price;
+    case SortingType.TopRatedFirst:
+      return (a: Offer, b: Offer) => b.rating - a.rating;
+    default:
+      return () => 0;
+  }
+};
+
+
+function MainPage() {
   const activeCity = useAppSelector((state) => state.activeCity);
   const activeSortingType = useAppSelector((state) => state.activeSortingType);
 
@@ -79,3 +97,5 @@ export function MainPage() {
     </div>
   );
 }
+
+export default MainPage;

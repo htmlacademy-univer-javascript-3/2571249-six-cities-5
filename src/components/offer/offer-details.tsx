@@ -1,4 +1,5 @@
 ﻿import {ReactElement} from 'react';
+
 import {OfferDetailed} from '../../models/offer-detailed.ts';
 import {capitalize} from '../../helper-functions.ts';
 
@@ -6,7 +7,7 @@ import {capitalize} from '../../helper-functions.ts';
 type OfferDetailsProps = Omit<OfferDetailed, 'id | city | location | images'>;
 
 
-export function OfferDetails(
+function OfferDetails(
   {
     title,
     type,
@@ -97,3 +98,5 @@ export function OfferDetails(
     </>
   );
 }
+
+export default OfferDetails;

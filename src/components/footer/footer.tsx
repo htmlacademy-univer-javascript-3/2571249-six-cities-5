@@ -1,9 +1,10 @@
 ﻿import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
+
 import {AppRoute} from '../../const.ts';
 
 
-export default function Footer(): ReactElement {
+function Footer(): ReactElement {
   return (
     <footer className="footer container">
       <Link className="footer__logo-link" to={AppRoute.Main}>
@@ -12,3 +13,5 @@ export default function Footer(): ReactElement {
     </footer>
   );
 }
+
+export default Footer;

@@ -1,7 +1,8 @@
 ﻿import {createAction} from '@reduxjs/toolkit';
+
+import {AuthorizationStatus, SortingType} from '../const.ts';
 import {Offers} from '../models/offer.ts';
 import {City} from '../models/city.ts';
-import {AuthorizationStatus, SortingType} from '../const.ts';
 import {UserData} from '../models/user-data.ts';
 import {OfferDetailed} from '../models/offer-detailed.ts';
 import {Review, Reviews} from '../models/review.ts';

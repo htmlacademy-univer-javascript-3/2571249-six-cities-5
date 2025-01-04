@@ -1,19 +1,21 @@
-﻿import {ReviewForm} from '../../components/review-form/review-form.tsx';
-import {ReactElement} from 'react';
+﻿import {ReactElement} from 'react';
 import {Navigate} from 'react-router-dom';
+
 import {AppRoute, AuthorizationStatus, CardType, MapType} from '../../const.ts';
-import {OfferDetails} from '../../components/offer-details/offer-details.tsx';
-import {ReviewList} from '../../components/review-list/review-list.tsx';
-import Map from '../../components/map/map.tsx';
-import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import Spinner from '../../components/spinner/spinner.tsx';
-import Header from '../../components/header/header.tsx';
-import {postReviewAction} from '../../store/api-actions.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {postReviewAction} from '../../store/api-actions.ts';
+
+import Header from '../../components/header/header.tsx';
+import Spinner from '../../components/spinner/spinner.tsx';
+import OfferCardList from '../../components/offer/offer-card-list.tsx';
+import OfferDetails from '../../components/offer/offer-details.tsx';
+import ReviewForm from '../../components/review/review-form.tsx';
+import ReviewList from '../../components/review/review-list.tsx';
+import Map from '../../components/map/map.tsx';
 
 
-export function OfferPage(): ReactElement {
+function OfferPage(): ReactElement {
   const offerDetailed = useAppSelector((state) => state.offerDetailed);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const isLoading = useAppSelector((state) => state.isLoading);
@@ -102,3 +104,5 @@ export function OfferPage(): ReactElement {
     </div>
   );
 }
+
+export default OfferPage;

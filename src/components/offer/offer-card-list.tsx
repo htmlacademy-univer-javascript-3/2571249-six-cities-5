@@ -1,8 +1,10 @@
 ﻿import {ReactElement} from 'react';
-import {Offers} from '../../models/offer.ts';
-import {OfferCard} from '../offer-card/offer-card.tsx';
-import {CardType} from '../../const.ts';
 import cn from 'classnames';
+
+import {CardType} from '../../const.ts';
+import {Offers} from '../../models/offer.ts';
+
+import OfferCard from './offer-card.tsx';
 
 
 type OfferCardListProps = {
@@ -12,7 +14,7 @@ type OfferCardListProps = {
 }
 
 
-export function OfferCardList({offers, setActiveOfferId, cardType}: OfferCardListProps): ReactElement {
+function OfferCardList({offers, setActiveOfferId, cardType}: OfferCardListProps): ReactElement {
   const onChangeActiveOfferId = setActiveOfferId
     ? (id: string | null): void => setActiveOfferId(id)
     : undefined;
@@ -35,3 +37,5 @@ export function OfferCardList({offers, setActiveOfferId, cardType}: OfferCardLis
     </div>
   );
 }
+
+export default OfferCardList;

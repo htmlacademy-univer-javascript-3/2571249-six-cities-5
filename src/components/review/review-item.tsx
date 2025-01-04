@@ -1,11 +1,12 @@
 ﻿import {ReactElement} from 'react';
+
 import {Review} from '../../models/review.ts';
 
 
 type ReviewProps = Omit<Review, 'id'>
 
 
-export function ReviewItem({date, user, comment, rating}: ReviewProps): ReactElement {
+function ReviewItem({date, user, comment, rating}: ReviewProps): ReactElement {
   const monthList = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December',
@@ -39,3 +40,5 @@ export function ReviewItem({date, user, comment, rating}: ReviewProps): ReactEle
     </li>
   );
 }
+
+export default ReviewItem;

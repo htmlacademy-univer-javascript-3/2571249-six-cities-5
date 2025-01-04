@@ -1,11 +1,12 @@
 ﻿import {Link} from 'react-router-dom';
+
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {logoutAction} from '../../store/api-actions.ts';
 
 
-export default function Header() {
+function Header() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const userData = useAppSelector((state) => state.userData);
   const userEmail = useAppSelector((state) => state.email);
@@ -61,3 +62,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;

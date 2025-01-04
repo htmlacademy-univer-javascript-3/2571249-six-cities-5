@@ -9,7 +9,7 @@ type ReviewFormProps = {
 }
 
 
-export function ReviewForm({submitHandler}: ReviewFormProps): ReactElement {
+function ReviewForm({submitHandler}: ReviewFormProps): ReactElement {
   const [reviewData, setReviewData] = useState({
     comment: '',
     rating: 0,
@@ -73,3 +73,5 @@ export function ReviewForm({submitHandler}: ReviewFormProps): ReactElement {
     </form>
   );
 }
+
+export default ReviewForm;

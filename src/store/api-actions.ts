@@ -1,8 +1,14 @@
 ﻿import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../models/state.ts';
 import {AxiosInstance} from 'axios';
-import {Offers} from '../models/offer.ts';
+
 import {ApiRoutes, AuthorizationStatus} from '../const.ts';
+import {Offers} from '../models/offer.ts';
+import {AppDispatch, State} from '../models/state.ts';
+import {UserDataFull} from '../models/user-data.ts';
+import {UserCredentials} from '../models/user-credentials.ts';
+import {OfferDetailed} from '../models/offer-detailed.ts';
+import {Review, Reviews} from '../models/review.ts';
+import {removeToken, setToken} from '../services/tokens.ts';
 import {
   addOfferReviewAction,
   loadOfferAction,
@@ -11,11 +17,6 @@ import {
   setLoadingStatusAction,
   setUserDataAction, setUserEmailAction
 } from './actions.ts';
-import {UserDataFull} from '../models/user-data.ts';
-import {UserCredentials} from '../models/user-credentials.ts';
-import {removeToken, setToken} from '../services/tokens.ts';
-import {OfferDetailed} from '../models/offer-detailed.ts';
-import {Review, Reviews} from '../models/review.ts';
 
 
 export const fetchOffersAction = createAsyncThunk<

@@ -1,14 +1,15 @@
 ﻿import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {setActiveCityAction} from '../../store/actions.ts';
-import {AppRoute, CITIES} from '../../const.ts';
 import cn from 'classnames';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
+
+import {AppRoute, CITIES} from '../../const.ts';
 import {City} from '../../models/city.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {setActiveCityAction} from '../../store/actions.ts';
 
 
-export default function CityList(): ReactElement {
+function CityList(): ReactElement {
   const cities = CITIES;
   const activeCity = useAppSelector((state) => state.activeCity);
   const dispatch = useAppDispatch();
@@ -38,3 +39,5 @@ export default function CityList(): ReactElement {
     </ul>
   );
 }
+
+export default CityList;

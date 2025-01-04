@@ -1,8 +1,9 @@
 ﻿import {ReactElement, useEffect, useRef} from 'react';
-import useMap from '../../hooks/use-map.ts';
 import leaflet from 'leaflet';
+
 import {MapType, URL_MARKER_ACTIVE, URL_MARKER_DEFAULT} from '../../const.ts';
 import {Location} from '../../models/location.ts';
+import {useMap} from '../../hooks/use-map.ts';
 
 
 type OfferOnMap = {
@@ -20,7 +21,7 @@ type MapProps = {
 };
 
 
-export default function Map({location, offers, activeOfferId, type}: MapProps): ReactElement {
+function Map({location, offers, activeOfferId, type}: MapProps): ReactElement {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, location);
 
@@ -62,3 +63,5 @@ export default function Map({location, offers, activeOfferId, type}: MapProps): 
     </div>
   );
 }
+
+export default Map;

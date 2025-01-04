@@ -1,6 +1,7 @@
-﻿import {Link, useNavigate} from 'react-router-dom';
+﻿import {FormEvent, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+
 import {AppRoute, CITIES} from '../../const.ts';
-import {FormEvent, useState} from 'react';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {fetchOffersAction, loginAction} from '../../store/api-actions.ts';
 import {setActiveCityAction} from '../../store/actions.ts';
@@ -12,7 +13,7 @@ const isPasswordValid = (password: string): boolean =>
   !/\s/.test(password);
 
 
-export function LoginPage() {
+function LoginPage() {
   const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -89,3 +90,5 @@ export function LoginPage() {
     </div>
   );
 }
+
+export default LoginPage;

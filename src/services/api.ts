@@ -1,4 +1,5 @@
 ﻿import axios, {AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+
 import {AUTH_TOKEN_HEADER, BASE_URL, TIMEOUT} from '../const.ts';
 import {getToken} from './tokens.ts';
 

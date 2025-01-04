@@ -1,4 +1,11 @@
 ﻿import {createReducer} from '@reduxjs/toolkit';
+
+import {AuthorizationStatus, DEFAULT_CITY, SortingType} from '../const.ts';
+import {Offers} from '../models/offer.ts';
+import {City} from '../models/city.ts';
+import {UserData} from '../models/user-data.ts';
+import {OfferDetailed} from '../models/offer-detailed.ts';
+import {Reviews} from '../models/review.ts';
 import {
   loadOfferAction,
   loadOffersAction,
@@ -7,12 +14,6 @@ import {
   setAuthorizationStatusAction, setLoadingStatusAction, addOfferReviewAction,
   setUserDataAction, setUserEmailAction
 } from './actions.ts';
-import {Offers} from '../models/offer.ts';
-import {City} from '../models/city.ts';
-import {AuthorizationStatus, DEFAULT_CITY, SortingType} from '../const.ts';
-import {UserData} from '../models/user-data.ts';
-import {OfferDetailed} from '../models/offer-detailed.ts';
-import {Reviews} from '../models/review.ts';
 
 
 type StoreState = {
@@ -61,10 +62,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.offerDetailed = action.payload;
     })
     .addCase(addOfferReviewAction, (state, action) => {
-      if (!state.offerDetailed) {
-        return;
-      }
-      state.offerDetailed.reviews.unshift(action.payload);
+      state.offerDetailed!.reviews.unshift(action.payload);
     })
     .addCase(setAuthorizationStatusAction, (state, action) => {
       state.authorizationStatus = action.payload;
