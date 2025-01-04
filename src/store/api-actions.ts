@@ -4,6 +4,7 @@ import {AxiosInstance} from 'axios';
 import {Offers} from '../models/offer.ts';
 import {ApiRoutes, AuthorizationStatus} from '../const.ts';
 import {
+  addOfferReviewAction,
   loadOfferAction,
   loadOffersAction,
   setAuthorizationStatusAction,
@@ -14,12 +15,11 @@ import {UserDataFull} from '../models/user-data.ts';
 import {UserCredentials} from '../models/user-credentials.ts';
 import {removeToken, setToken} from '../services/tokens.ts';
 import {OfferDetailed} from '../models/offer-detailed.ts';
-import {Reviews} from '../models/review.ts';
+import {Review, Reviews} from '../models/review.ts';
 
 
 export const fetchOffersAction = createAsyncThunk<
-  void,
-  undefined,
+  void, undefined,
   {
     dispatch: AppDispatch;
     state: State;
@@ -32,8 +32,7 @@ export const fetchOffersAction = createAsyncThunk<
   });
 
 export const fetchOfferAction = createAsyncThunk<
-  void,
-  string,
+  void, string,
   {
     dispatch: AppDispatch;
     state: State;
@@ -54,9 +53,22 @@ export const fetchOfferAction = createAsyncThunk<
     }
   });
 
+export const postReviewAction = createAsyncThunk<
+  void, { offerId: string; comment: string; rating: number },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('POST_COMMENT', async ({ offerId, comment, rating }, {dispatch, extra: api}) => {
+    try {
+      const reviewsUrl = `${ApiRoutes.Reviews}/${offerId}`;
+      const { data } = await api.post<Review>(reviewsUrl, { comment: comment, rating: +rating });
+      dispatch(addOfferReviewAction(data));
+    } catch { /* empty */ }
+  });
+
 export const checkAuthorizationAction = createAsyncThunk<
-  void,
-  undefined,
+  void, undefined,
   {
     dispatch: AppDispatch;
     state: State;
@@ -76,8 +88,7 @@ export const checkAuthorizationAction = createAsyncThunk<
   });
 
 export const loginAction = createAsyncThunk<
-  void,
-  UserCredentials,
+  void, UserCredentials,
   {
     dispatch: AppDispatch;
     state: State;
@@ -94,8 +105,7 @@ export const loginAction = createAsyncThunk<
   });
 
 export const logoutAction = createAsyncThunk<
-  void,
-  undefined,
+  void, undefined,
   {
     dispatch: AppDispatch;
     state: State;

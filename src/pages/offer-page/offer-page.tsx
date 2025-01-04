@@ -1,7 +1,7 @@
 ﻿import {ReviewForm} from '../../components/review-form/review-form.tsx';
 import {ReactElement, useState} from 'react';
 import {Navigate} from 'react-router-dom';
-import {AppRoute, CardType, MapType} from '../../const.ts';
+import {AppRoute, AuthorizationStatus, CardType, MapType} from '../../const.ts';
 import {OfferDetails} from '../../components/offer-details/offer-details.tsx';
 import {ReviewList} from '../../components/review-list/review-list.tsx';
 import Map from '../../components/map/map.tsx';
@@ -10,12 +10,16 @@ import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
 import {getMiddleLocation} from '../../helper-functions.ts';
 import Header from '../../components/header/header.tsx';
+import {postReviewAction} from '../../store/api-actions.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 
 
 export function OfferPage(): ReactElement {
   const offerDetailed = useAppSelector((state) => state.offerDetailed);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
   const isLoading = useAppSelector((state) => state.isLoading);
   const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
   if (isLoading) {
     return (
@@ -32,6 +36,10 @@ export function OfferPage(): ReactElement {
   const offer = offerDetailed.offer;
   const nearbyOffers = offerDetailed.offersNearby.slice(0, 3);
   const reviews = offerDetailed.reviews;
+
+  const handlePostReview = (reviewData: { comment: string; rating: number }) => {
+    dispatch(postReviewAction({offerId: offer.id, ...reviewData}));
+  };
 
   return (
     <div className="page">
@@ -59,7 +67,7 @@ export function OfferPage(): ReactElement {
                   Reviews &middot;<span className="reviews__amount">{reviews.length}</span>
                 </h2>
                 <ReviewList reviews={reviews}/>
-                <ReviewForm/>
+                { authStatus === AuthorizationStatus.Authorized && <ReviewForm submitHandler={handlePostReview}/> }
               </section>
             </div>
           </div>

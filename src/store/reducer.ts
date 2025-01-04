@@ -4,7 +4,7 @@ import {
   loadOffersAction,
   setActiveCityAction,
   setActiveSortingTypeAction,
-  setAuthorizationStatusAction, setLoadingStatusAction,
+  setAuthorizationStatusAction, setLoadingStatusAction, addOfferReviewAction,
   setUserDataAction, setUserEmailAction
 } from './actions.ts';
 import {Offers} from '../models/offer.ts';
@@ -59,6 +59,12 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOfferAction, (state, action) => {
       state.offerDetailed = action.payload;
+    })
+    .addCase(addOfferReviewAction, (state, action) => {
+      if (!state.offerDetailed) {
+        return;
+      }
+      state.offerDetailed.reviews.push(action.payload);
     })
     .addCase(setAuthorizationStatusAction, (state, action) => {
       state.authorizationStatus = action.payload;
