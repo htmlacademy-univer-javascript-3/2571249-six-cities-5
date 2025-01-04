@@ -22,7 +22,7 @@ export function App(): ReactElement {
           <Route index element={<MainPage />} />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route path={AppRoute.Favorites} element={
-            <PrivateRoute isAuthorized>
+            <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }
