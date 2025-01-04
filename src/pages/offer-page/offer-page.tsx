@@ -66,7 +66,7 @@ export function OfferPage(): ReactElement {
                 <h2 className="reviews__title">
                   Reviews &middot;<span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewList reviews={reviews}/>
+                <ReviewList reviews={reviews.slice(-10)}/>
                 { authStatus === AuthorizationStatus.Authorized && <ReviewForm submitHandler={handlePostReview}/> }
               </section>
             </div>

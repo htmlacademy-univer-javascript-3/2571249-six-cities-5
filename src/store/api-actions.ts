@@ -46,7 +46,11 @@ export const fetchOfferAction = createAsyncThunk<
       const { data: offersNearby } = await api.get<Offers>(`${offerUrl}/nearby`);
       const { data: reviews } = await api.get<Reviews>(reviewsUrl);
       dispatch(setLoadingStatusAction(false));
-      dispatch(loadOfferAction({offer, offersNearby, reviews}));
+      dispatch(loadOfferAction({
+        offer: offer,
+        offersNearby: offersNearby,
+        reviews: reviews.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)),
+      }));
     } catch {
       dispatch(setLoadingStatusAction(false));
       dispatch(loadOfferAction(undefined));
