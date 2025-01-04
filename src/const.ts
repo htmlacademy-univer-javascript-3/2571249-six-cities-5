@@ -29,6 +29,13 @@ export enum MapType {
 
 export enum ApiRoutes {
   GetOffers = '/offers',
+  Login = '/login',
+}
+
+export enum AuthorizationStatus {
+  Authorized = 'Authorized',
+  Unauthorized = 'Unauthorized',
+  Unknown = 'Unknown',
 }
 
 
