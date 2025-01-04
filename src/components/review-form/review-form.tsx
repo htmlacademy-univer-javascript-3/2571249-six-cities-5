@@ -3,10 +3,16 @@
 
 const RATING_STARS = [5, 4, 3, 2, 1];
 
-export function ReviewForm(): ReactElement {
+
+type ReviewFormProps = {
+  submitHandler: (review: { comment: string; rating: number }) => void;
+}
+
+
+export function ReviewForm({submitHandler}: ReviewFormProps): ReactElement {
   const [reviewData, setReviewData] = useState({
+    comment: '',
     rating: 0,
-    review: '',
   });
 
   const handleChangeReview = (evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -16,18 +22,14 @@ export function ReviewForm(): ReactElement {
 
   const handleSubmitReview = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
-    // TO-DO
-    // eslint-disable-next-line no-console
-    console.log(reviewData);
+    submitHandler(reviewData);
+    evt.currentTarget.reset();
   };
 
   return (
     <form
-      onSubmit={handleSubmitReview}
       className="reviews__form form"
-      action="#"
-      method="post"
+      onSubmit={handleSubmitReview}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
 
@@ -50,7 +52,7 @@ export function ReviewForm(): ReactElement {
 
       <textarea
         onChange={handleChangeReview}
-        className="reviews__textarea form__textarea" id="review" name="review"
+        className="reviews__textarea form__textarea" id="review" name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
       >
       </textarea>
@@ -63,7 +65,7 @@ export function ReviewForm(): ReactElement {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={!reviewData.rating || reviewData.review.length < 50 || reviewData.review.length > 300}
+          disabled={!reviewData.rating || reviewData.comment.length < 50 || reviewData.comment.length > 300}
         >
           Submit
         </button>

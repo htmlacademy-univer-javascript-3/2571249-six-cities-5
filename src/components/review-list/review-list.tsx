@@ -1,10 +1,10 @@
 ﻿import {ReactElement} from 'react';
-import {Review} from '../../models/review.ts';
+import {Reviews} from '../../models/review.ts';
 import {ReviewItem} from '../review-item/review-item.tsx';
 
 
 type ReviewListProps = {
-  reviews: Review[];
+  reviews: Reviews;
 }
 
 
