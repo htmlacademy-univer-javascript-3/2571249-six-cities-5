@@ -66,8 +66,8 @@ export const toggleFavoriteStatusAction = createAsyncThunk<
   }>('TOGGLE_FAVORITE', async ({ offerId, status }, {dispatch, extra: api}) => {
     try {
       const favoriteUrl = `${ApiRoutes.Favorite}/${offerId}/${status}`;
-      const { data } = await api.post<OfferDetailed>(favoriteUrl, { status: +status });
-      dispatch(addOfferReviewAction(data));
+      await api.post<OfferDetailed>(favoriteUrl, { status: +status });
+      dispatch(setLoadingStatusAction(false)); // затычка, понял что вперед паровоза улетел :')
     } catch { /* empty */ }
   });
 
