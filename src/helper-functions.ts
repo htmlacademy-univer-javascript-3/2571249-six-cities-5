@@ -19,5 +19,7 @@ export const getSorter = (sortingType: SortingType) => {
       return (a: Offer, b: Offer) => b.price - a.price;
     case SortingType.TopRatedFirst:
       return (a: Offer, b: Offer) => b.rating - a.rating;
+    default:
+      return () => 0;
   }
 };
