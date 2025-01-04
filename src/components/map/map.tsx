@@ -3,22 +3,19 @@ import useMap from '../../hooks/use-map.ts';
 import leaflet from 'leaflet';
 import {URL_MARKER_ACTIVE, URL_MARKER_DEFAULT} from '../../const.ts';
 import {Offer} from '../../models/offer.ts';
+import {Location} from '../../models/location.ts';
 
 
 type MapProps = {
-  city: {
-    longitude: number;
-    latitude: number;
-    zoom: number;
-  };
+  location: Location;
   offers: Offer[];
   activeOfferId: string | null;
 };
 
 
-export default function Map({city, offers, activeOfferId}: MapProps): ReactElement {
+export default function Map({location, offers, activeOfferId}: MapProps): ReactElement {
   const mapRef = useRef<HTMLDivElement>(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, location);
 
   const defaultCustomIcon = leaflet.icon({
     iconUrl: URL_MARKER_DEFAULT,

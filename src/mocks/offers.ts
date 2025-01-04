@@ -1,25 +1,19 @@
-﻿import {Offer} from '../models/offer.ts';
+﻿import {Offers} from '../models/offer.ts';
 import {OfferDetailed} from '../models/offer-detailed.ts';
+import {CITY_LIST_MOCK} from './cities.ts';
 
 
-export const OFFER_LIST_MOCK: Offer[] = [
+export const OFFER_LIST_MOCK: Offers = [
   {
     id: '0',
     title: 'House0',
     type: 'house',
     price: 0,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
-      zoom: 8
+      zoom: 12
     },
     isFavorite: false,
     isPremium: false,
@@ -31,18 +25,11 @@ export const OFFER_LIST_MOCK: Offer[] = [
     title: 'House1',
     type: 'house',
     price: 100,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
       latitude: 52.3609553943508,
       longitude: 4.85309666406198,
-      zoom: 8
+      zoom: 12
     },
     isFavorite: true,
     isPremium: false,
@@ -54,18 +41,11 @@ export const OFFER_LIST_MOCK: Offer[] = [
     title: 'House2',
     type: 'house',
     price: 200,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
-      zoom: 8
+      zoom: 12
     },
     isFavorite: true,
     isPremium: false,
@@ -77,18 +57,11 @@ export const OFFER_LIST_MOCK: Offer[] = [
     title: 'Cool Apartment!!!',
     type: 'apartment',
     price: 777,
-    city: {
-      name: 'Amsterdam',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
-      zoom: 8
+      zoom: 12
     },
     isFavorite: true,
     isPremium: true,
@@ -103,18 +76,11 @@ export const OFFER_DETAILED_MOCKS: OfferDetailed[] = [
     title: 'House0',
     type: 'house',
     price: 0,
-    city: {
-      name: 'City0',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 8
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: 12
     },
     isFavorite: false,
     isPremium: false,
@@ -135,18 +101,11 @@ export const OFFER_DETAILED_MOCKS: OfferDetailed[] = [
     title: 'House1',
     type: 'house',
     price: 100,
-    city: {
-      name: 'City1',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 8
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
+      zoom: 12
     },
     isFavorite: true,
     isPremium: false,
@@ -167,18 +126,11 @@ export const OFFER_DETAILED_MOCKS: OfferDetailed[] = [
     title: 'House2',
     type: 'house',
     price: 200,
-    city: {
-      name: 'Cool City',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 8
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: 12
     },
     isFavorite: true,
     isPremium: false,
@@ -199,18 +151,11 @@ export const OFFER_DETAILED_MOCKS: OfferDetailed[] = [
     title: 'Cool Apartment!!!',
     type: 'apartment',
     price: 777,
-    city: {
-      name: 'Cool City',
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 8
-      }
-    },
+    city: CITY_LIST_MOCK[3],
     location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 8
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 12
     },
     isFavorite: true,
     isPremium: true,

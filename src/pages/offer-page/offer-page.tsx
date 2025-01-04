@@ -6,22 +6,22 @@ import {AppRoute, CardType} from '../../const.ts';
 import {OfferDetails} from '../../components/offer-details/offer-details.tsx';
 import {Review} from '../../models/review.ts';
 import {ReviewList} from '../../components/review-list/review-list.tsx';
-import {Offer} from '../../models/offer.ts';
 import Map from '../../components/map/map.tsx';
 import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
 
 
 type OfferPageProps = {
   offers: OfferDetailed[];
   reviews: Review[];
-  nearbyOffers: Offer[];
 }
 
 
-export function OfferPage({offers, reviews, nearbyOffers}: OfferPageProps): ReactElement {
-  const { id } = useParams();
+export function OfferPage({offers, reviews}: OfferPageProps): ReactElement {
+  const nearbyOffers = useAppSelector((state) => state.offers);
   const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(null);
 
+  const { id } = useParams();
   const offer = offers.find((o) => o.id === id);
   if (!offer) {
     return (<Navigate to={AppRoute.NotFound} />);
@@ -58,11 +58,7 @@ export function OfferPage({offers, reviews, nearbyOffers}: OfferPageProps): Reac
 
         <section className="offer__map map">
           <Map
-            city={{
-              latitude: 52.377956,
-              longitude: 4.897070,
-              zoom: 12
-            }}
+            location={offer.location}
             offers={nearbyOffers}
             activeOfferId={activeNearbyOfferId}
           />

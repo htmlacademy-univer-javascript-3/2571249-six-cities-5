@@ -1,8 +1,15 @@
 ﻿import {createReducer} from '@reduxjs/toolkit';
-import {StoreState} from '../models/store-state.ts';
 import {fillOffersAction, setActiveCityAction} from './action.ts';
-import {CITY_LIST_MOCK} from '../mocks/cities.ts';
 import {OFFER_LIST_MOCK} from '../mocks/offers.ts';
+import {Offers} from '../models/offer.ts';
+import {CITY_LIST_MOCK} from '../mocks/cities.ts';
+import {City} from '../models/city.ts';
+
+
+type StoreState = {
+  activeCity: City;
+  offers: Offers;
+};
 
 
 const initialState: StoreState = {

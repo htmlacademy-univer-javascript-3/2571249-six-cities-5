@@ -1,12 +1,12 @@
 ﻿import {ReactElement} from 'react';
-import {Offer} from '../../models/offer.ts';
+import {Offers} from '../../models/offer.ts';
 import {OfferCard} from '../offer-card/offer-card.tsx';
 import {CardType} from '../../const.ts';
 import cn from 'classnames';
 
 
 type OfferCardListProps = {
-  offers: Offer[];
+  offers: Offers;
   setActiveOfferId: (id: string | null) => void;
   cardType: CardType;
 }

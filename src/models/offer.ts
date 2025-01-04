@@ -15,3 +15,5 @@ export type Offer = {
   rating: number;
   previewImage: string;
 };
+
+export type Offers = Offer[];
