@@ -1,5 +1,6 @@
 ﻿import {SortingType} from './const.ts';
-import {Offer} from './models/offer.ts';
+import {Offer, Offers} from './models/offer.ts';
+import {Location} from './models/location.ts';
 
 
 export const capitalize = (str: string): string => {
@@ -22,4 +23,15 @@ export const getSorter = (sortingType: SortingType) => {
     default:
       return () => 0;
   }
+};
+
+export const getMiddleLocation = (offers: Offers): Location => {
+  const loc1 = offers[0].location;
+  const loc2 = offers[1].location;
+  const loc3 = offers[2].location;
+  return {
+    latitude: (loc1.latitude + loc2.latitude + loc3.latitude) / 3.0,
+    longitude: (loc1.longitude + loc2.longitude + loc3.longitude) / 3.0,
+    zoom: (loc1.zoom + loc2.zoom + loc3.zoom) / 3.0 - 3.0,
+  };
 };

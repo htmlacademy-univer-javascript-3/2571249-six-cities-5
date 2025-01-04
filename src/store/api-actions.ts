@@ -4,7 +4,8 @@ import {AxiosInstance} from 'axios';
 import {Offers} from '../models/offer.ts';
 import {ApiRoutes, AuthorizationStatus} from '../const.ts';
 import {
-  fillOffersAction,
+  loadOfferAction,
+  loadOffersAction,
   setAuthorizationStatusAction,
   setLoadingStatusAction,
   setUserDataAction
@@ -12,6 +13,8 @@ import {
 import {UserDataFull} from '../models/user-data.ts';
 import {UserCredentials} from '../models/user-credentials.ts';
 import {removeToken, setToken} from '../services/tokens.ts';
+import {OfferDetailed} from '../models/offer-detailed.ts';
+import {Reviews} from '../models/review.ts';
 
 
 export const fetchOffersAction = createAsyncThunk<
@@ -23,9 +26,32 @@ export const fetchOffersAction = createAsyncThunk<
     extra: AxiosInstance;
   }>('FETCH_OFFERS', async (_arg, {dispatch, extra: api}) => {
     dispatch(setLoadingStatusAction(true));
-    const { data } = await api.get<Offers>(ApiRoutes.GetOffers);
+    const { data } = await api.get<Offers>(ApiRoutes.Offers);
     dispatch(setLoadingStatusAction(false));
-    dispatch(fillOffersAction(data));
+    dispatch(loadOffersAction(data));
+  });
+
+export const fetchOfferAction = createAsyncThunk<
+  void,
+  string,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('FETCH_OFFER', async (offerId, {dispatch, extra: api}) => {
+    try {
+      dispatch(setLoadingStatusAction(true));
+      const offerUrl = `${ApiRoutes.Offers}/${offerId}`;
+      const reviewsUrl = `${ApiRoutes.Reviews}/${offerId}`;
+      const { data: offer } = await api.get<OfferDetailed>(offerUrl);
+      const { data: offersNearby } = await api.get<Offers>(`${offerUrl}/nearby`);
+      const { data: reviews } = await api.get<Reviews>(reviewsUrl);
+      dispatch(setLoadingStatusAction(false));
+      dispatch(loadOfferAction({offer, offersNearby, reviews}));
+    } catch {
+      dispatch(setLoadingStatusAction(false));
+      dispatch(loadOfferAction(undefined));
+    }
   });
 
 export const checkAuthorizationAction = createAsyncThunk<

@@ -28,7 +28,8 @@ export enum MapType {
 }
 
 export enum ApiRoutes {
-  GetOffers = '/offers',
+  Offers = '/offers',
+  Reviews = '/comments',
   Login = '/login',
   Logout = '/logout',
 }

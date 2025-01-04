@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import {capitalize} from '../../helper-functions.ts';
 import {AppRoute, CardType} from '../../const.ts';
 import cn from 'classnames';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {fetchOfferAction} from '../../store/api-actions.ts';
 
 
 type OfferCardProps = Omit<Offer, 'city' | 'location'> & {
@@ -23,7 +25,13 @@ export function OfferCard({
   onChangeActiveOfferId,
   cardType,
 }: OfferCardProps) {
+  const dispatch = useAppDispatch();
+
   const offerUrl: string = AppRoute.Offer.replace(':id', id);
+
+  const handleFetchOffer = (offerId: string) => {
+    dispatch(fetchOfferAction(offerId));
+  };
 
   return (
     <article
@@ -45,7 +53,7 @@ export function OfferCard({
         'near-places__image-wrapper': cardType === CardType.Nearby,
       })}
       >
-        <Link to={offerUrl}>
+        <Link to={offerUrl} onClick={() => handleFetchOffer(id)}>
           <img
             className="place-card__image"
             src={previewImage}
@@ -80,7 +88,7 @@ export function OfferCard({
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={offerUrl}>
+          <Link to={offerUrl} onClick={() => handleFetchOffer(id)}>
             {title}
           </Link>
         </h2>
