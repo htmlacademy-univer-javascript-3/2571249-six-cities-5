@@ -23,24 +23,16 @@ export enum SortingType {
 }
 
 export enum ApiRoutes {
-  GetOffers = 'offers',
+  GetOffers = '/offers',
 }
 
 
 export const CITIES: Cities = [
   {
-    name: 'Amsterdam',
+    name: 'Paris',
     location: {
-      latitude: 52.377956,
-      longitude: 4.897070,
-      zoom: 12,
-    }
-  },
-  {
-    name: 'Brussels',
-    location: {
-      latitude: 50.85045,
-      longitude: 4.34878,
+      latitude: 48.864716,
+      longitude: 2.349014,
       zoom: 12,
     }
   },
@@ -53,10 +45,18 @@ export const CITIES: Cities = [
     }
   },
   {
-    name: 'Dusseldorf',
+    name: 'Brussels',
     location: {
-      latitude: 51.233334,
-      longitude: 6.783333,
+      latitude: 50.85045,
+      longitude: 4.34878,
+      zoom: 12,
+    }
+  },
+  {
+    name: 'Amsterdam',
+    location: {
+      latitude: 52.377956,
+      longitude: 4.897070,
       zoom: 12,
     }
   },
@@ -69,10 +69,10 @@ export const CITIES: Cities = [
     }
   },
   {
-    name: 'Paris',
+    name: 'Dusseldorf',
     location: {
-      latitude: 48.864716,
-      longitude: 2.349014,
+      latitude: 51.233334,
+      longitude: 6.783333,
       zoom: 12,
     }
   },
@@ -80,7 +80,6 @@ export const CITIES: Cities = [
 
 export const DEFAULT_CITY = CITIES.find((c) => c.name === 'Paris') || CITIES[0];
 
-export const BASE_API_ROUTE = '/six-cities';
 export const BASE_URL = 'https://14.design.htmlacademy.pro/six-cities';
 export const TIMEOUT = 5000;
 

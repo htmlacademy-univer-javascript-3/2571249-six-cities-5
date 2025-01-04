@@ -7,3 +7,4 @@ import {SortingType} from '../const.ts';
 export const fillOffersAction = createAction<Offers>('FILL_OFFERS');
 export const setActiveCityAction = createAction<City>('SET_ACTIVE_CITY');
 export const setActiveSortingTypeAction = createAction<SortingType>('SET_SORTING_TYPE');
+export const setLoadingStatus = createAction<boolean>('SET_LOADING_STATUS');

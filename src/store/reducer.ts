@@ -9,6 +9,7 @@ type StoreState = {
   offers: Offers;
   activeCity: City;
   activeSortingType: SortingType;
+  isLoading: boolean;
 };
 
 
@@ -16,6 +17,7 @@ const initialState: StoreState = {
   offers: [],
   activeCity: DEFAULT_CITY,
   activeSortingType: SortingType.Popular,
+  isLoading: false,
 };
 
 

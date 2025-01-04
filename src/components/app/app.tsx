@@ -8,17 +8,9 @@ import {OfferPage} from '../../pages/offer-page/offer-page.tsx';
 import {NotFoundPage} from '../../pages/not-found-page/not-found-page.tsx';
 import {PrivateRoute} from '../private-route.tsx';
 import {Layout} from '../layout.tsx';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {fillOffersAction} from '../../store/actions.ts';
 
 
 export function App(): ReactElement {
-  const offers = useAppSelector((state) => state.offers);
-
-  const dispatch = useAppDispatch();
-  dispatch(fillOffersAction(offers));
-
   return (
     <BrowserRouter>
       <Routes>
