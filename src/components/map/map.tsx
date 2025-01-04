@@ -1,7 +1,7 @@
 ﻿import {ReactElement, useEffect, useRef} from 'react';
 import useMap from '../../hooks/use-map.ts';
 import leaflet from 'leaflet';
-import {URL_MARKER_ACTIVE, URL_MARKER_DEFAULT} from '../../const.ts';
+import {MapType, URL_MARKER_ACTIVE, URL_MARKER_DEFAULT} from '../../const.ts';
 import {Offer} from '../../models/offer.ts';
 import {Location} from '../../models/location.ts';
 
@@ -10,10 +10,11 @@ type MapProps = {
   location: Location;
   offers: Offer[];
   activeOfferId: string | null;
+  type: MapType;
 };
 
 
-export default function Map({location, offers, activeOfferId}: MapProps): ReactElement {
+export default function Map({location, offers, activeOfferId, type}: MapProps): ReactElement {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, location);
 
@@ -48,6 +49,7 @@ export default function Map({location, offers, activeOfferId}: MapProps): ReactE
 
   return (
     <div
+      className={type === MapType.Main ? 'cities__map map' : 'offer__map map' }
       style={{height: '100%', width: '100%'}}
       ref={mapRef}
     >

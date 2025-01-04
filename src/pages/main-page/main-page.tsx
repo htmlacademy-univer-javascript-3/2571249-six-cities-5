@@ -1,7 +1,7 @@
 ﻿import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
 import Map from '../../components/map/map.tsx';
 import {useState} from 'react';
-import {CardType} from '../../const.ts';
+import {CardType, MapType} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import CityList from '../../components/city-list/city-list.tsx';
 import Sorting from '../../components/sorting/sorting.tsx';
@@ -66,13 +66,12 @@ export function MainPage() {
             </section>
 
             <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  location={activeCity.location}
-                  offers={offers}
-                  activeOfferId={activeOfferId}
-                />
-              </section>
+              <Map
+                location={activeCity.location}
+                offers={offers}
+                activeOfferId={activeOfferId}
+                type={MapType.Main}
+              />
             </div>
           </div>
         </div>

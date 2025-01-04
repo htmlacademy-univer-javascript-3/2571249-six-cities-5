@@ -8,9 +8,13 @@ import {OfferPage} from '../../pages/offer-page/offer-page.tsx';
 import {NotFoundPage} from '../../pages/not-found-page/not-found-page.tsx';
 import {PrivateRoute} from '../private-route.tsx';
 import {Layout} from '../layout.tsx';
+import {store} from '../../store';
+import {fetchOffersAction} from '../../store/api-actions.ts';
 
 
 export function App(): ReactElement {
+  store.dispatch(fetchOffersAction());
+
   return (
     <BrowserRouter>
       <Routes>

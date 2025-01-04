@@ -22,6 +22,11 @@ export enum SortingType {
   TopRatedFirst = 'Top rated first',
 }
 
+export enum MapType {
+  Main,
+  Offer,
+}
+
 export enum ApiRoutes {
   GetOffers = '/offers',
 }

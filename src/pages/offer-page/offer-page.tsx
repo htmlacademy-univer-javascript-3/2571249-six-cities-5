@@ -1,7 +1,7 @@
 ﻿import {ReviewForm} from '../../components/review-form/review-form.tsx';
 import {ReactElement, useState} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
-import {AppRoute, CardType} from '../../const.ts';
+import {AppRoute, CardType, MapType} from '../../const.ts';
 import {OfferDetails} from '../../components/offer-details/offer-details.tsx';
 import {ReviewList} from '../../components/review-list/review-list.tsx';
 import Map from '../../components/map/map.tsx';
@@ -53,6 +53,7 @@ export function OfferPage(): ReactElement {
             location={offer.location}
             offers={nearbyOffers}
             activeOfferId={activeNearbyOfferId}
+            type={MapType.Offer}
           />
         </section>
       </section>

@@ -27,8 +27,8 @@ export default function CityList(): ReactElement {
         >
           <Link
             to={AppRoute.Main}
-            className={cn('locations__item-link, tabs__item', {
-              'tabs__item--active' : city === activeCity
+            className={cn('locations__item-link tabs__item', {
+              'tabs__item--active' : city.name === activeCity.name
             })}
           >
             <span>{city.name}</span>
