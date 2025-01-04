@@ -1,8 +1,15 @@
 ﻿import {createReducer} from '@reduxjs/toolkit';
-import {fillOffersAction, setActiveCityAction, setActiveSortingTypeAction} from './actions.ts';
+import {
+  fillOffersAction,
+  setActiveCityAction,
+  setActiveSortingTypeAction,
+  setAuthorizationStatusAction,
+  setUserDataAction, setUserEmailAction
+} from './actions.ts';
 import {Offers} from '../models/offer.ts';
 import {City} from '../models/city.ts';
-import {DEFAULT_CITY, SortingType} from '../const.ts';
+import {AuthorizationStatus, DEFAULT_CITY, SortingType} from '../const.ts';
+import {UserData} from '../models/user-data.ts';
 
 
 type StoreState = {
@@ -10,6 +17,9 @@ type StoreState = {
   activeCity: City;
   activeSortingType: SortingType;
   isLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  userData: UserData | undefined;
+  email: string;
 };
 
 
@@ -18,6 +28,9 @@ const initialState: StoreState = {
   activeCity: DEFAULT_CITY,
   activeSortingType: SortingType.Popular,
   isLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  userData: undefined,
+  email: '',
 };
 
 
@@ -31,5 +44,14 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setActiveSortingTypeAction, (state, action) => {
       state.activeSortingType = action.payload;
+    })
+    .addCase(setAuthorizationStatusAction, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserEmailAction, (state, action) => {
+      state.email = action.payload;
+    })
+    .addCase(setUserDataAction, (state, action) => {
+      state.userData = action.payload;
     });
 });
