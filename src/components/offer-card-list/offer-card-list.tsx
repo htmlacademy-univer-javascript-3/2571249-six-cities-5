@@ -7,15 +7,15 @@ import cn from 'classnames';
 
 type OfferCardListProps = {
   offers: Offers;
-  setActiveOfferId: (id: string | null) => void;
+  setActiveOfferId?: (id: string | null) => void;
   cardType: CardType;
 }
 
 
 export function OfferCardList({offers, setActiveOfferId, cardType}: OfferCardListProps): ReactElement {
-  const onChangeActiveOfferId = (id: string | null): void => {
-    setActiveOfferId(id);
-  };
+  const onChangeActiveOfferId = setActiveOfferId
+    ? (id: string | null): void => setActiveOfferId(id)
+    : undefined;
 
   return (
     <div

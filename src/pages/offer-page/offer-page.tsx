@@ -1,5 +1,5 @@
 ﻿import {ReviewForm} from '../../components/review-form/review-form.tsx';
-import {ReactElement, useState} from 'react';
+import {ReactElement} from 'react';
 import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus, CardType, MapType} from '../../const.ts';
 import {OfferDetails} from '../../components/offer-details/offer-details.tsx';
@@ -8,7 +8,6 @@ import Map from '../../components/map/map.tsx';
 import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import Spinner from '../../components/spinner/spinner.tsx';
-import {getMiddleLocation} from '../../helper-functions.ts';
 import Header from '../../components/header/header.tsx';
 import {postReviewAction} from '../../store/api-actions.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
@@ -18,7 +17,6 @@ export function OfferPage(): ReactElement {
   const offerDetailed = useAppSelector((state) => state.offerDetailed);
   const authStatus = useAppSelector((state) => state.authorizationStatus);
   const isLoading = useAppSelector((state) => state.isLoading);
-  const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(null);
   const dispatch = useAppDispatch();
 
   if (isLoading) {
@@ -36,6 +34,15 @@ export function OfferPage(): ReactElement {
   const offer = offerDetailed.offer;
   const nearbyOffers = offerDetailed.offersNearby.slice(0, 3);
   const reviews = offerDetailed.reviews;
+
+  const offerOnMap = {
+    id: offer.id,
+    location: offer.location,
+  };
+  const nearbyOffersOnMap = nearbyOffers.map((nearbyOffer) => ({
+    id: nearbyOffer.id,
+    location: nearbyOffer.location,
+  }));
 
   const handlePostReview = (reviewData: { comment: string; rating: number }) => {
     dispatch(postReviewAction({offerId: offer.id, ...reviewData}));
@@ -74,9 +81,9 @@ export function OfferPage(): ReactElement {
 
           <section className="offer__map map">
             <Map
-              location={getMiddleLocation(nearbyOffers)}
-              offers={nearbyOffers}
-              activeOfferId={activeNearbyOfferId}
+              location={offer.location}
+              offers={nearbyOffersOnMap.concat(offerOnMap)}
+              activeOfferId={offer.id}
               type={MapType.Offer}
             />
           </section>
@@ -87,7 +94,6 @@ export function OfferPage(): ReactElement {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <OfferCardList
               offers={nearbyOffers}
-              setActiveOfferId={setActiveNearbyOfferId}
               cardType={CardType.Nearby}
             />
           </section>

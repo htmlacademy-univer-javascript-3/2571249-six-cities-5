@@ -8,6 +8,7 @@ import {logoutAction} from '../../store/api-actions.ts';
 export default function Header() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const userData = useAppSelector((state) => state.userData);
+  const userEmail = useAppSelector((state) => state.email);
   const dispatch = useAppDispatch();
 
   const isAuthorized = () => authorizationStatus === AuthorizationStatus.Authorized;
@@ -34,7 +35,7 @@ export default function Header() {
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                         <img src={userData?.avatarUrl} alt="user_avatar"></img>
                       </div>
-                      <span className="header__user-name user__name">{userData?.name}</span>
+                      <span className="header__user-name user__name">{userEmail}</span>
                       <span className="header__favorite-count">3</span>
                     </Link>
                   </li>

@@ -9,7 +9,7 @@ import {
   loadOffersAction,
   setAuthorizationStatusAction,
   setLoadingStatusAction,
-  setUserDataAction
+  setUserDataAction, setUserEmailAction
 } from './actions.ts';
 import {UserDataFull} from '../models/user-data.ts';
 import {UserCredentials} from '../models/user-credentials.ts';
@@ -99,6 +99,7 @@ export const checkAuthorizationAction = createAsyncThunk<
         avatarUrl: data.avatarUrl,
         isPro: data.isPro,
       }));
+      dispatch(setUserEmailAction(data.email));
       dispatch(setAuthorizationStatusAction(AuthorizationStatus.Authorized));
     } catch {
       dispatch(setAuthorizationStatusAction(AuthorizationStatus.Unauthorized));
@@ -119,6 +120,7 @@ export const loginAction = createAsyncThunk<
       avatarUrl: data.avatarUrl,
       isPro: data.isPro,
     }));
+    dispatch(setUserEmailAction(email));
     dispatch(setAuthorizationStatusAction(AuthorizationStatus.Authorized));
   });
 
