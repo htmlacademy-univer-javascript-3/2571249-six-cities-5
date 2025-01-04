@@ -1,23 +1,15 @@
 ﻿import {ReviewForm} from '../../components/review-form/review-form.tsx';
-import {OfferDetailed} from '../../models/offer-detailed.ts';
 import {ReactElement, useState} from 'react';
 import {Navigate, useParams} from 'react-router-dom';
-import {AppRoute, CardType} from '../../const.ts';
+import {AppRoute, CardType, MapType} from '../../const.ts';
 import {OfferDetails} from '../../components/offer-details/offer-details.tsx';
-import {Review} from '../../models/review.ts';
 import {ReviewList} from '../../components/review-list/review-list.tsx';
 import Map from '../../components/map/map.tsx';
 import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 
 
-type OfferPageProps = {
-  offers: OfferDetailed[];
-  reviews: Review[];
-}
-
-
-export function OfferPage({offers, reviews}: OfferPageProps): ReactElement {
+export function OfferPage(): ReactElement {
   const nearbyOffers = useAppSelector((state) => state.offers);
   const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(null);
 
@@ -61,6 +53,7 @@ export function OfferPage({offers, reviews}: OfferPageProps): ReactElement {
             location={offer.location}
             offers={nearbyOffers}
             activeOfferId={activeNearbyOfferId}
+            type={MapType.Offer}
           />
         </section>
       </section>

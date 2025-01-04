@@ -1,16 +1,15 @@
 ﻿import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {setActiveCityAction} from '../../store/action.ts';
-import {AppRoute} from '../../const.ts';
+import {setActiveCityAction} from '../../store/actions.ts';
+import {AppRoute, CITIES} from '../../const.ts';
 import cn from 'classnames';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {CITY_LIST_MOCK} from '../../mocks/cities.ts';
 import {City} from '../../models/city.ts';
 
 
 export default function CityList(): ReactElement {
-  const cities = CITY_LIST_MOCK;
+  const cities = CITIES;
   const activeCity = useAppSelector((state) => state.activeCity);
   const dispatch = useAppDispatch();
 
@@ -28,8 +27,8 @@ export default function CityList(): ReactElement {
         >
           <Link
             to={AppRoute.Main}
-            className={cn('locations__item-link, tabs__item', {
-              'tabs__item--active' : city === activeCity
+            className={cn('locations__item-link tabs__item', {
+              'tabs__item--active' : city.name === activeCity.name
             })}
           >
             <span>{city.name}</span>

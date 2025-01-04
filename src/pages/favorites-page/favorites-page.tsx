@@ -1,13 +1,30 @@
-﻿import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
-import {FavoriteList} from '../../components/favorite-list/favorite-list.tsx';
-import {Offer} from '../../models/offer.ts';
+﻿import {FavoriteList} from '../../components/favorite-list/favorite-list.tsx';
+import {Offer, Offers} from '../../models/offer.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import Header from '../../components/header/header.tsx';
+import Footer from '../../components/footer/footer.tsx';
+import cn from 'classnames';
+import {ReactElement} from 'react';
+
+
+function FavoritesEmpty(): ReactElement {
+  return (
+    <>
+      <h1 className="visually-hidden">Favorites (empty)</h1>
+      <div className="favorites__status-wrapper">
+        <b className="favorites__status">Nothing yet saved.</b>
+        <p className="favorites__status-description">
+          Save properties to narrow down search or plan your future trips.
+        </p>
+      </div>
+    </>
+  );
+}
 
 
 export function FavoritesPage() {
   const offers = useAppSelector((state) => state.offers);
-  const favorites: Offer[] = offers.filter((offer) => offer.isFavorite);
+  const favorites: Offers = offers.filter((offer) => offer.isFavorite);
   const favoritesDictionary: { [key: string]: Offer[] } = {};
   for (const offer of favorites) {
     if (!favoritesDictionary[offer.city.name]) {
@@ -16,30 +33,32 @@ export function FavoritesPage() {
     favoritesDictionary[offer.city.name].push(offer);
   }
   const favoritesByCity = Object.entries(favoritesDictionary);
+  const isEmpty = () => favorites.length === 0;
 
   return (
-    <>
-      <main className="page__main page__main--favorites">
+    <div className={cn('page', {'page--favorites-empty': isEmpty})}>
+      <Header />
+      <main className={cn('page__main page__main--favorites', {'page__main--favorites-empty': isEmpty})}>
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">Saved listing</h1>
-            <ul className="favorites__list">
-              {favoritesByCity.map(([c, o]) => (
-                <FavoriteList
-                  key={c}
-                  city={c}
-                  offers={o}
-                />
-              ))}
-            </ul>
+          <section className={cn('favorites', {'favorites--empty': isEmpty})}>
+            {isEmpty() ? (<FavoritesEmpty />) : (
+              <>
+                <h1 className="favorites__title">Saved listing</h1>
+                <ul className="favorites__list">
+                  {favoritesByCity.map(([c, o]) => (
+                    <FavoriteList
+                      key={c}
+                      city={c}
+                      offers={o}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}
           </section>
         </div>
       </main>
-      <footer className="footer container">
-        <Link className="footer__logo-link" to={AppRoute.Main}>
-          <img className="footer__logo" src='public/img/logo.svg' alt="6 cities logo" width="64" height="33" />
-        </Link>
-      </footer>
-    </>
+      <Footer/>
+    </div>
   );
 }
