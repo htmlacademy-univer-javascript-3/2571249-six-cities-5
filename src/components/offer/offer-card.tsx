@@ -1,8 +1,10 @@
-﻿import {Offer} from '../../models/offer.ts';
+﻿import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
-import {capitalize} from '../../helper-functions.ts';
-import {AppRoute, CardType} from '../../const.ts';
 import cn from 'classnames';
+
+import {AppRoute, CardType} from '../../const.ts';
+import {Offer} from '../../models/offer.ts';
+import {capitalize} from '../../helper-functions.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {fetchOfferAction} from '../../store/api-actions.ts';
 
@@ -13,7 +15,7 @@ type OfferCardProps = Omit<Offer, 'city' | 'location'> & {
 };
 
 
-export function OfferCard({
+function OfferCard({
   id,
   title,
   type,
@@ -24,7 +26,7 @@ export function OfferCard({
   previewImage,
   onChangeActiveOfferId,
   cardType,
-}: OfferCardProps) {
+}: OfferCardProps): ReactElement {
   const dispatch = useAppDispatch();
 
   const offerUrl: string = AppRoute.Offer.replace(':id', id);
@@ -97,3 +99,5 @@ export function OfferCard({
     </article>
   );
 }
+
+export default OfferCard;

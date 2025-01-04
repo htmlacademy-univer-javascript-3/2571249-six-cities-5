@@ -1,10 +1,13 @@
-﻿import {FavoriteList} from '../../components/favorite-list/favorite-list.tsx';
+﻿import {ReactElement} from 'react';
+import cn from 'classnames';
+
 import {Offer, Offers} from '../../models/offer.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {getOffers} from '../../store/offers-list/selectors.ts';
+
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/footer.tsx';
-import cn from 'classnames';
-import {ReactElement} from 'react';
+import FavoriteList from '../../components/favorite-list/favorite-list.tsx';
 
 
 function FavoritesEmpty(): ReactElement {
@@ -22,8 +25,8 @@ function FavoritesEmpty(): ReactElement {
 }
 
 
-export function FavoritesPage() {
-  const offers = useAppSelector((state) => state.offers);
+function FavoritesPage() {
+  const offers = useAppSelector(getOffers);
   const favorites: Offers = offers.filter((offer) => offer.isFavorite);
   const favoritesDictionary: { [key: string]: Offer[] } = {};
   for (const offer of favorites) {
@@ -62,3 +65,5 @@ export function FavoritesPage() {
     </div>
   );
 }
+
+export default FavoritesPage;

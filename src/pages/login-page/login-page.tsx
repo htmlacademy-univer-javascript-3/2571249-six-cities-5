@@ -1,9 +1,10 @@
-﻿import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {FormEvent, useState} from 'react';
+﻿import {FormEvent, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
+
+import {AppRoute, CITIES} from '../../const.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {fetchOffersAction, loginAction} from '../../store/api-actions.ts';
+import {setActiveCity} from '../../store/offers-list/reducers.ts';
 
 
 const isPasswordValid = (password: string): boolean =>
@@ -12,8 +13,8 @@ const isPasswordValid = (password: string): boolean =>
   !/\s/.test(password);
 
 
-export function LoginPage() {
-  const activeCity = useAppSelector((state) => state.activeCity);
+function LoginPage() {
+  const randomCity = CITIES[Math.floor(Math.random() * CITIES.length)];
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -28,6 +29,10 @@ export function LoginPage() {
         navigate(AppRoute.Main);
       });
     }
+  };
+
+  const handleCityClick = () => {
+    dispatch(setActiveCity(randomCity));
   };
 
   return (
@@ -75,8 +80,8 @@ export function LoginPage() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Main}>
-                <span>{activeCity.name}</span>
+              <Link className="locations__item-link" to={AppRoute.Main} onClick={handleCityClick}>
+                <span>{randomCity.name}</span>
               </Link>
             </div>
           </section>
@@ -85,3 +90,5 @@ export function LoginPage() {
     </div>
   );
 }
+
+export default LoginPage;

@@ -1,18 +1,20 @@
 ﻿import {ReactElement, useState} from 'react';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {SortingType} from '../../const.ts';
-import {setActiveSortingTypeAction} from '../../store/actions.ts';
 import cn from 'classnames';
 
+import {SortingType} from '../../const.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {getActiveSortingType} from '../../store/offers-list/selectors.ts';
+import {setActiveSortingType} from '../../store/offers-list/reducers.ts';
 
-export default function Sorting(): ReactElement {
+
+function Sorting(): ReactElement {
   const [isOpen, setIsOpen] = useState(false);
-  const activeSortingType = useAppSelector((state) => state.activeSortingType);
+  const activeSortingType = useAppSelector(getActiveSortingType);
   const dispatch = useAppDispatch();
 
   const handleSetActiveSortingType = (sortingType: SortingType): void => {
-    dispatch(setActiveSortingTypeAction(sortingType));
+    dispatch(setActiveSortingType(sortingType));
     setIsOpen(false);
   };
 
@@ -40,3 +42,5 @@ export default function Sorting(): ReactElement {
     </form>
   );
 }
+
+export default Sorting;

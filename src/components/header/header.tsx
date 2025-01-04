@@ -1,16 +1,19 @@
 ﻿import {Link} from 'react-router-dom';
+
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {getAuthStatus, getUserEmail, getUserInfo} from '../../store/user/selectors.ts';
 import {logoutAction} from '../../store/api-actions.ts';
 
 
-export default function Header() {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const userData = useAppSelector((state) => state.userData);
+function Header() {
+  const authStatus = useAppSelector(getAuthStatus);
+  const userInfo = useAppSelector(getUserInfo);
+  const userEmail = useAppSelector(getUserEmail);
   const dispatch = useAppDispatch();
 
-  const isAuthorized = () => authorizationStatus === AuthorizationStatus.Authorized;
+  const isAuthorized = () => authStatus === AuthorizationStatus.Authorized;
 
   const handleLogout = () => {
     dispatch(logoutAction());
@@ -32,9 +35,9 @@ export default function Header() {
                   <li className="header__nav-item user">
                     <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
-                        <img src={userData?.avatarUrl} alt="user_avatar"></img>
+                        <img src={userInfo?.avatarUrl} alt="user_avatar"></img>
                       </div>
-                      <span className="header__user-name user__name">{userData?.name}</span>
+                      <span className="header__user-name user__name">{userEmail}</span>
                       <span className="header__favorite-count">3</span>
                     </Link>
                   </li>
@@ -60,3 +63,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default Header;

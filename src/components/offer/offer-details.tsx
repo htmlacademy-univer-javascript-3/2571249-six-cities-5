@@ -1,4 +1,5 @@
 ﻿import {ReactElement} from 'react';
+
 import {OfferDetailed} from '../../models/offer-detailed.ts';
 import {capitalize} from '../../helper-functions.ts';
 
@@ -6,7 +7,7 @@ import {capitalize} from '../../helper-functions.ts';
 type OfferDetailsProps = Omit<OfferDetailed, 'id | city | location | images'>;
 
 
-export function OfferDetails(
+function OfferDetails(
   {
     title,
     type,
@@ -54,10 +55,10 @@ export function OfferDetails(
           {capitalize(type)}
         </li>
         <li className="offer__feature offer__feature--bedrooms">
-          {bedrooms} Bedrooms
+          {bedrooms} Bedroom{bedrooms === 1 || 's'}
         </li>
         <li className="offer__feature offer__feature--adults">
-          Max {maxAdults} adults
+          Max {maxAdults} adult{maxAdults === 1 || 's'}
         </li>
       </ul>
       <div className="offer__price">
@@ -97,3 +98,5 @@ export function OfferDetails(
     </>
   );
 }
+
+export default OfferDetails;

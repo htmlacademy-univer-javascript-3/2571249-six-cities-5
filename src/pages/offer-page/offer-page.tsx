@@ -1,24 +1,26 @@
-﻿import {ReviewForm} from '../../components/review-form/review-form.tsx';
-import {ReactElement, useState} from 'react';
+﻿import {ReactElement} from 'react';
 import {Navigate} from 'react-router-dom';
+
 import {AppRoute, AuthorizationStatus, CardType, MapType} from '../../const.ts';
-import {OfferDetails} from '../../components/offer-details/offer-details.tsx';
-import {ReviewList} from '../../components/review-list/review-list.tsx';
-import Map from '../../components/map/map.tsx';
-import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import Spinner from '../../components/spinner/spinner.tsx';
-import {getMiddleLocation} from '../../helper-functions.ts';
-import Header from '../../components/header/header.tsx';
-import {postReviewAction} from '../../store/api-actions.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {postReviewAction} from '../../store/api-actions.ts';
+import {getAuthStatus} from '../../store/user/selectors.ts';
+import {getOfferDetails, getDetailsLoadingStatus} from '../../store/offer-details/selectors.ts';
+
+import Header from '../../components/header/header.tsx';
+import Spinner from '../../components/spinner/spinner.tsx';
+import OfferCardsList from '../../components/offer/offer-cards-list.tsx';
+import OfferDetails from '../../components/offer/offer-details.tsx';
+import ReviewForm from '../../components/review/review-form.tsx';
+import ReviewsList from '../../components/review/reviews-list.tsx';
+import Map from '../../components/map/map.tsx';
 
 
-export function OfferPage(): ReactElement {
-  const offerDetailed = useAppSelector((state) => state.offerDetailed);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const isLoading = useAppSelector((state) => state.isLoading);
-  const [activeNearbyOfferId, setActiveNearbyOfferId] = useState<string | null>(null);
+function OfferPage(): ReactElement {
+  const offerDetails = useAppSelector(getOfferDetails);
+  const authStatus = useAppSelector(getAuthStatus);
+  const isLoading = useAppSelector(getDetailsLoadingStatus);
   const dispatch = useAppDispatch();
 
   if (isLoading) {
@@ -27,15 +29,24 @@ export function OfferPage(): ReactElement {
     );
   }
 
-  if (offerDetailed === undefined) {
+  if (offerDetails === undefined) {
     return (
       <Navigate to={AppRoute.NotFound} />
     );
   }
 
-  const offer = offerDetailed.offer;
-  const nearbyOffers = offerDetailed.offersNearby.slice(0, 3);
-  const reviews = offerDetailed.reviews;
+  const offer = offerDetails.offer;
+  const nearbyOffers = offerDetails.offersNearby.slice(0, 3);
+  const reviews = offerDetails.reviews;
+
+  const offerOnMap = {
+    id: offer.id,
+    location: offer.location,
+  };
+  const nearbyOffersOnMap = nearbyOffers.map((nearbyOffer) => ({
+    id: nearbyOffer.id,
+    location: nearbyOffer.location,
+  }));
 
   const handlePostReview = (reviewData: { comment: string; rating: number }) => {
     dispatch(postReviewAction({offerId: offer.id, ...reviewData}));
@@ -66,7 +77,7 @@ export function OfferPage(): ReactElement {
                 <h2 className="reviews__title">
                   Reviews &middot;<span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewList reviews={reviews.slice(0, 10)}/>
+                <ReviewsList reviews={reviews.slice(0, 10)}/>
                 { authStatus === AuthorizationStatus.Authorized && <ReviewForm submitHandler={handlePostReview}/> }
               </section>
             </div>
@@ -74,9 +85,9 @@ export function OfferPage(): ReactElement {
 
           <section className="offer__map map">
             <Map
-              location={getMiddleLocation(nearbyOffers)}
-              offers={nearbyOffers}
-              activeOfferId={activeNearbyOfferId}
+              location={offer.location}
+              offers={nearbyOffersOnMap.concat(offerOnMap)}
+              activeOfferId={offer.id}
               type={MapType.Offer}
             />
           </section>
@@ -85,9 +96,8 @@ export function OfferPage(): ReactElement {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferCardList
+            <OfferCardsList
               offers={nearbyOffers}
-              setActiveOfferId={setActiveNearbyOfferId}
               cardType={CardType.Nearby}
             />
           </section>
@@ -96,3 +106,5 @@ export function OfferPage(): ReactElement {
     </div>
   );
 }
+
+export default OfferPage;

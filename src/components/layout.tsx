@@ -2,8 +2,10 @@
 import {Outlet} from 'react-router-dom';
 
 
-export function Layout(): ReactElement {
+function Layout(): ReactElement {
   return (
     <Outlet/>
   );
 }
+
+export default Layout;

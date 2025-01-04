@@ -1,9 +1,10 @@
 import {ReactElement} from 'react';
 import {Link} from 'react-router-dom';
+
 import {AppRoute} from '../../const.ts';
 
 
-export function NotFoundPage(): ReactElement {
+function NotFoundPage(): ReactElement {
   return (
     <>
       <h1>404 Not Found</h1>
@@ -11,3 +12,5 @@ export function NotFoundPage(): ReactElement {
     </>
   );
 }
+
+export default NotFoundPage;

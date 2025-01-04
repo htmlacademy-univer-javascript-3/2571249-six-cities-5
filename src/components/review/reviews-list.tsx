@@ -1,14 +1,16 @@
 ﻿import {ReactElement} from 'react';
+
 import {Reviews} from '../../models/review.ts';
-import {ReviewItem} from '../review-item/review-item.tsx';
+
+import ReviewItem from './review-item.tsx';
 
 
-type ReviewListProps = {
+type ReviewsListProps = {
   reviews: Reviews;
 }
 
 
-export function ReviewList({reviews}: ReviewListProps): ReactElement {
+function ReviewsList({reviews}: ReviewsListProps): ReactElement {
   return (
     <ul className="reviews__list">
       {reviews.map((review) => (
@@ -20,3 +22,5 @@ export function ReviewList({reviews}: ReviewListProps): ReactElement {
     </ul>
   );
 }
+
+export default ReviewsList;

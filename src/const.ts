@@ -41,6 +41,12 @@ export enum AuthorizationStatus {
   Unknown = 'Unknown',
 }
 
+export enum SliceName {
+  OffersList = 'OFFERS_LIST',
+  OfferDetails = 'OFFER_DETAILS',
+  User = 'USER',
+}
+
 
 export const CITIES: Cities = [
   {

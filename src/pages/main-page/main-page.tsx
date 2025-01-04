@@ -1,24 +1,48 @@
-﻿import {OfferCardList} from '../../components/offer-card-list/offer-card-list.tsx';
-import Map from '../../components/map/map.tsx';
-import {useState} from 'react';
-import {CardType, MapType} from '../../const.ts';
-import {useAppSelector} from '../../hooks/use-app-selector.ts';
-import CityList from '../../components/city-list/city-list.tsx';
-import Sorting from '../../components/sorting/sorting.tsx';
-import {getSorter} from '../../helper-functions.ts';
-import Spinner from '../../components/spinner/spinner.tsx';
+﻿import {useState} from 'react';
 import cn from 'classnames';
+
+import {CardType, MapType, SortingType} from '../../const.ts';
+import {Offer} from '../../models/offer.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {
+  getOffers,
+  getActiveCity,
+  getActiveSortingType,
+  getListLoadingStatus
+} from '../../store/offers-list/selectors.ts';
+
 import Header from '../../components/header/header.tsx';
+import Spinner from '../../components/spinner/spinner.tsx';
+import Sorting from '../../components/sorting/sorting.tsx';
+import CitiesList from '../../components/cities-list/cities-list.tsx';
+import OfferCardsList from '../../components/offer/offer-cards-list.tsx';
+import Map from '../../components/map/map.tsx';
 
 
-export function MainPage() {
-  const activeCity = useAppSelector((state) => state.activeCity);
-  const activeSortingType = useAppSelector((state) => state.activeSortingType);
+const getSorter = (sortingType: SortingType) => {
+  switch (sortingType) {
+    case SortingType.Popular:
+      return () => 0;
+    case SortingType.PriceLowToHigh:
+      return (a: Offer, b: Offer) => a.price - b.price;
+    case SortingType.PriceHighToLow:
+      return (a: Offer, b: Offer) => b.price - a.price;
+    case SortingType.TopRatedFirst:
+      return (a: Offer, b: Offer) => b.rating - a.rating;
+    default:
+      return () => 0;
+  }
+};
 
-  const offers = useAppSelector((state) => state.offers
-    .filter((o) => o.city.name === activeCity.name))
+
+function MainPage() {
+  const activeCity = useAppSelector(getActiveCity);
+  const activeSortingType = useAppSelector(getActiveSortingType);
+
+  const offers = useAppSelector(getOffers)
+    .filter((o) => o.city.name === activeCity.name)
     .sort(getSorter(activeSortingType));
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector(getListLoadingStatus);
   const isEmpty = () => offers.length === 0;
 
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
@@ -36,7 +60,7 @@ export function MainPage() {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CityList/>
+            <CitiesList/>
           </section>
         </div>
 
@@ -56,7 +80,7 @@ export function MainPage() {
                     <h2 className="visually-hidden">Places</h2>
                     <b className="places__found">{offers.length} places to stay in {activeCity.name}</b>
                     <Sorting/>
-                    <OfferCardList
+                    <OfferCardsList
                       offers={offers}
                       setActiveOfferId={setActiveOfferId}
                       cardType={CardType.Main}
@@ -79,3 +103,5 @@ export function MainPage() {
     </div>
   );
 }
+
+export default MainPage;
