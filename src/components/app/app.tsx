@@ -9,32 +9,38 @@ import {NotFoundPage} from '../../pages/not-found-page/not-found-page.tsx';
 import {PrivateRoute} from '../private-route.tsx';
 import {Layout} from '../layout.tsx';
 import {OfferDetailed} from '../../models/offer-detailed.ts';
-import {Offer} from '../../models/offer.ts';
 import {Review} from '../../models/review.ts';
+import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {fillOffersAction} from '../../store/action.ts';
 
 
 type AppProps = {
-  offerList: Offer[];
   offersDetailed: OfferDetailed[];
   reviewList: Review[];
 }
 
 
-export function App({offerList, offersDetailed, reviewList}: AppProps): ReactElement {
+export function App({offersDetailed, reviewList}: AppProps): ReactElement {
+  const offers = useAppSelector((state) => state.offers);
+
+  const dispatch = useAppDispatch();
+  dispatch(fillOffersAction(offers));
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<Layout />}>
-          <Route index element={<MainPage offers={offerList} />} />
+          <Route index element={<MainPage />} />
           <Route path={AppRoute.Login} element={<LoginPage />} />
           <Route path={AppRoute.Favorites} element={
             <PrivateRoute isAuthorized>
-              <FavoritesPage offers={offerList} />
+              <FavoritesPage />
             </PrivateRoute>
           }
           />
           <Route path={AppRoute.Offer} element={
-            <OfferPage offers={offersDetailed} reviews={reviewList} nearbyOffers={offerList}/>
+            <OfferPage offers={offersDetailed} reviews={reviewList} />
           }
           />
         </Route>
