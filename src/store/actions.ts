@@ -11,4 +11,4 @@ export const setActiveSortingTypeAction = createAction<SortingType>('SET_SORTING
 export const setLoadingStatusAction = createAction<boolean>('SET_LOADING_STATUS');
 export const setAuthorizationStatusAction = createAction<AuthorizationStatus>('SET_AUTH_STATUS');
 export const setUserEmailAction = createAction<string>('SET_USER_EMAIL');
-export const setUserDataAction = createAction<UserData>('SET_USER_DATA');
+export const setUserDataAction = createAction<UserData | undefined>('SET_USER_DATA');
