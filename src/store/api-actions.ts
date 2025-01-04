@@ -49,12 +49,26 @@ export const fetchOfferAction = createAsyncThunk<
       dispatch(loadOfferAction({
         offer: offer,
         offersNearby: offersNearby,
-        reviews: reviews.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)),
+        reviews: reviews.sort((a, b) => Date.parse(b.date) - Date.parse(a.date)),
       }));
     } catch {
       dispatch(setLoadingStatusAction(false));
       dispatch(loadOfferAction(undefined));
     }
+  });
+
+export const toggleFavoriteStatusAction = createAsyncThunk<
+  void, { offerId: string; status: number },
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('TOGGLE_FAVORITE', async ({ offerId, status }, {dispatch, extra: api}) => {
+    try {
+      const favoriteUrl = `${ApiRoutes.Favorite}/${offerId}/${status}`;
+      const { data } = await api.post<OfferDetailed>(favoriteUrl, { status: +status });
+      dispatch(addOfferReviewAction(data));
+    } catch { /* empty */ }
   });
 
 export const postReviewAction = createAsyncThunk<

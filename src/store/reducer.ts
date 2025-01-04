@@ -64,7 +64,7 @@ export const reducer = createReducer(initialState, (builder) => {
       if (!state.offerDetailed) {
         return;
       }
-      state.offerDetailed.reviews.push(action.payload);
+      state.offerDetailed.reviews.unshift(action.payload);
     })
     .addCase(setAuthorizationStatusAction, (state, action) => {
       state.authorizationStatus = action.payload;
