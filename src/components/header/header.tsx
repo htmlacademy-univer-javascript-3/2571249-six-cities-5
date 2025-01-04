@@ -1,13 +1,20 @@
 ﻿import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
+import {logoutAction} from '../../store/api-actions.ts';
 
 
 export default function Header() {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const userData = useAppSelector((state) => state.userData);
+  const dispatch = useAppDispatch();
 
   const isAuthorized = () => authorizationStatus === AuthorizationStatus.Authorized;
+
+  const handleLogout = () => {
+    dispatch(logoutAction());
+  };
 
   return (
     <header className="header">
@@ -27,12 +34,12 @@ export default function Header() {
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                         <img src={userData?.avatarUrl} alt="user_avatar"></img>
                       </div>
-                      <span className="header__user-name user__name">{userData?.email}</span>
+                      <span className="header__user-name user__name">{userData?.name}</span>
                       <span className="header__favorite-count">3</span>
                     </Link>
                   </li>
                   <li className="header__nav-item">
-                    <Link className="header__nav-link" to={AppRoute.Main}>
+                    <Link className="header__nav-link" to={AppRoute.Main} onClick={handleLogout}>
                       <span className="header__signout">Sign out</span>
                     </Link>
                   </li>

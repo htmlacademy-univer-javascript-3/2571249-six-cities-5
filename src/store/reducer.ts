@@ -4,7 +4,7 @@ import {
   setActiveCityAction,
   setActiveSortingTypeAction,
   setAuthorizationStatusAction,
-  setUserDataAction
+  setUserDataAction, setUserEmailAction
 } from './actions.ts';
 import {Offers} from '../models/offer.ts';
 import {City} from '../models/city.ts';
@@ -19,6 +19,7 @@ type StoreState = {
   isLoading: boolean;
   authorizationStatus: AuthorizationStatus;
   userData: UserData | undefined;
+  email: string;
 };
 
 
@@ -29,6 +30,7 @@ const initialState: StoreState = {
   isLoading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: undefined,
+  email: '',
 };
 
 
@@ -45,6 +47,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setAuthorizationStatusAction, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserEmailAction, (state, action) => {
+      state.email = action.payload;
     })
     .addCase(setUserDataAction, (state, action) => {
       state.userData = action.payload;

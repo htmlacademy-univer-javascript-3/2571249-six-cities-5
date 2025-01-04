@@ -9,7 +9,9 @@ import {
   setLoadingStatusAction,
   setUserDataAction
 } from './actions.ts';
-import {UserData} from '../models/user-data.ts';
+import {UserDataFull} from '../models/user-data.ts';
+import {UserCredentials} from '../models/user-credentials.ts';
+import {removeToken, setToken} from '../services/tokens.ts';
 
 
 export const fetchOffersAction = createAsyncThunk<
@@ -33,12 +35,47 @@ export const checkAuthorizationAction = createAsyncThunk<
     dispatch: AppDispatch;
     state: State;
     extra: AxiosInstance;
-  }>('LOGIN', async (_arg, {dispatch, extra: api}) => {
+  }>('CHECK_AUTH', async (_arg, {dispatch, extra: api}) => {
     try {
-      const { data } = await api.get<UserData>(ApiRoutes.Login);
-      dispatch(setUserDataAction(data));
+      const { data } = await api.get<UserDataFull>(ApiRoutes.Login);
+      dispatch(setUserDataAction({
+        name: data.name,
+        avatarUrl: data.avatarUrl,
+        isPro: data.isPro,
+      }));
       dispatch(setAuthorizationStatusAction(AuthorizationStatus.Authorized));
     } catch {
       dispatch(setAuthorizationStatusAction(AuthorizationStatus.Unauthorized));
     }
+  });
+
+export const loginAction = createAsyncThunk<
+  void,
+  UserCredentials,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('LOGIN', async ({email, password}, {dispatch, extra: api}) => {
+    const { data } = await api.post<UserDataFull>(ApiRoutes.Login, {email, password});
+    setToken(data.token);
+    dispatch(setUserDataAction({
+      name: data.name,
+      avatarUrl: data.avatarUrl,
+      isPro: data.isPro,
+    }));
+    dispatch(setAuthorizationStatusAction(AuthorizationStatus.Authorized));
+  });
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }>('LOGOUT', async (_arg, {dispatch, extra: api}) => {
+    await api.delete<UserDataFull>(ApiRoutes.Logout);
+    removeToken();
+    dispatch(setAuthorizationStatusAction(AuthorizationStatus.Unauthorized));
   });

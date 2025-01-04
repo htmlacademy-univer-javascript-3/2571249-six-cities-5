@@ -10,4 +10,5 @@ export const setActiveCityAction = createAction<City>('SET_ACTIVE_CITY');
 export const setActiveSortingTypeAction = createAction<SortingType>('SET_SORTING_TYPE');
 export const setLoadingStatusAction = createAction<boolean>('SET_LOADING_STATUS');
 export const setAuthorizationStatusAction = createAction<AuthorizationStatus>('SET_AUTH_STATUS');
+export const setUserEmailAction = createAction<string>('SET_USER_EMAIL');
 export const setUserDataAction = createAction<UserData>('SET_USER_DATA');
