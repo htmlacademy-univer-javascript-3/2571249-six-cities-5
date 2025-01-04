@@ -1,4 +1,4 @@
-﻿export type UserDataFull = {
+﻿export type UserInfoPrivate = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
@@ -6,7 +6,7 @@
   token: string;
 }
 
-export type UserData = {
+export type UserInfo = {
   name: string;
   avatarUrl: string;
   isPro: boolean;

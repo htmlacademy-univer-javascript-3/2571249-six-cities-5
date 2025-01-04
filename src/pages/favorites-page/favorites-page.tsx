@@ -3,6 +3,7 @@ import cn from 'classnames';
 
 import {Offer, Offers} from '../../models/offer.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {getOffers} from '../../store/offers-list/selectors.ts';
 
 import Header from '../../components/header/header.tsx';
 import Footer from '../../components/footer/footer.tsx';
@@ -25,7 +26,7 @@ function FavoritesEmpty(): ReactElement {
 
 
 function FavoritesPage() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const favorites: Offers = offers.filter((offer) => offer.isFavorite);
   const favoritesDictionary: { [key: string]: Offer[] } = {};
   for (const offer of favorites) {

@@ -2,7 +2,14 @@
 import cn from 'classnames';
 
 import {CardType, MapType, SortingType} from '../../const.ts';
+import {Offer} from '../../models/offer.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {
+  getOffers,
+  getActiveCity,
+  getActiveSortingType,
+  getListLoadingStatus
+} from '../../store/offers-list/selectors.ts';
 
 import Header from '../../components/header/header.tsx';
 import Spinner from '../../components/spinner/spinner.tsx';
@@ -10,7 +17,6 @@ import Sorting from '../../components/sorting/sorting.tsx';
 import CityList from '../../components/city-list/city-list.tsx';
 import OfferCardList from '../../components/offer/offer-card-list.tsx';
 import Map from '../../components/map/map.tsx';
-import {Offer} from '../../models/offer.ts';
 
 
 const getSorter = (sortingType: SortingType) => {
@@ -30,13 +36,13 @@ const getSorter = (sortingType: SortingType) => {
 
 
 function MainPage() {
-  const activeCity = useAppSelector((state) => state.activeCity);
-  const activeSortingType = useAppSelector((state) => state.activeSortingType);
+  const activeCity = useAppSelector(getActiveCity);
+  const activeSortingType = useAppSelector(getActiveSortingType);
 
-  const offers = useAppSelector((state) => state.offers
-    .filter((o) => o.city.name === activeCity.name))
+  const offers = useAppSelector(getOffers)
+    .filter((o) => o.city.name === activeCity.name)
     .sort(getSorter(activeSortingType));
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const isLoading = useAppSelector(getListLoadingStatus);
   const isEmpty = () => offers.length === 0;
 
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);

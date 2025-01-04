@@ -4,7 +4,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute, CITIES} from '../../const.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {fetchOffersAction, loginAction} from '../../store/api-actions.ts';
-import {setActiveCityAction} from '../../store/actions.ts';
+import {setActiveCity} from '../../store/offers-list/reducers.ts';
 
 
 const isPasswordValid = (password: string): boolean =>
@@ -32,7 +32,7 @@ function LoginPage() {
   };
 
   const handleCityClick = () => {
-    dispatch(setActiveCityAction(randomCity));
+    dispatch(setActiveCity(randomCity));
   };
 
   return (

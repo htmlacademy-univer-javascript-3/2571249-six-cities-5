@@ -5,6 +5,8 @@ import {AppRoute, AuthorizationStatus, CardType, MapType} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {postReviewAction} from '../../store/api-actions.ts';
+import {getAuthStatus} from '../../store/user/selectors.ts';
+import {getOfferDetails, getDetailsLoadingStatus} from '../../store/offer-details/selectors.ts';
 
 import Header from '../../components/header/header.tsx';
 import Spinner from '../../components/spinner/spinner.tsx';
@@ -16,9 +18,9 @@ import Map from '../../components/map/map.tsx';
 
 
 function OfferPage(): ReactElement {
-  const offerDetailed = useAppSelector((state) => state.offerDetailed);
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
-  const isLoading = useAppSelector((state) => state.isLoading);
+  const offerDetails = useAppSelector(getOfferDetails);
+  const authStatus = useAppSelector(getAuthStatus);
+  const isLoading = useAppSelector(getDetailsLoadingStatus);
   const dispatch = useAppDispatch();
 
   if (isLoading) {
@@ -27,15 +29,15 @@ function OfferPage(): ReactElement {
     );
   }
 
-  if (offerDetailed === undefined) {
+  if (offerDetails === undefined) {
     return (
       <Navigate to={AppRoute.NotFound} />
     );
   }
 
-  const offer = offerDetailed.offer;
-  const nearbyOffers = offerDetailed.offersNearby.slice(0, 3);
-  const reviews = offerDetailed.reviews;
+  const offer = offerDetails.offer;
+  const nearbyOffers = offerDetails.offersNearby.slice(0, 3);
+  const reviews = offerDetails.reviews;
 
   const offerOnMap = {
     id: offer.id,
