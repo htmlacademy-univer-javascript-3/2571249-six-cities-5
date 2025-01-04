@@ -6,6 +6,12 @@ type ReviewProps = Omit<Review, 'id'>
 
 
 export function ReviewItem({date, user, comment, rating}: ReviewProps): ReactElement {
+  const monthList = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+  const parsedDate = new Date(date);
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -26,7 +32,9 @@ export function ReviewItem({date, user, comment, rating}: ReviewProps): ReactEle
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime={date}>April 2019</time>
+        <time className="reviews__time" dateTime={date}>
+          {`${monthList[parsedDate.getMonth()]} ${parsedDate.getFullYear()}`}
+        </time>
       </div>
     </li>
   );
