@@ -10,10 +10,10 @@ import {getOfferDetails, getDetailsLoadingStatus} from '../../store/offer-detail
 
 import Header from '../../components/header/header.tsx';
 import Spinner from '../../components/spinner/spinner.tsx';
-import OfferCardList from '../../components/offer/offer-card-list.tsx';
+import OfferCardsList from '../../components/offer/offer-cards-list.tsx';
 import OfferDetails from '../../components/offer/offer-details.tsx';
 import ReviewForm from '../../components/review/review-form.tsx';
-import ReviewList from '../../components/review/review-list.tsx';
+import ReviewsList from '../../components/review/reviews-list.tsx';
 import Map from '../../components/map/map.tsx';
 
 
@@ -77,7 +77,7 @@ function OfferPage(): ReactElement {
                 <h2 className="reviews__title">
                   Reviews &middot;<span className="reviews__amount">{reviews.length}</span>
                 </h2>
-                <ReviewList reviews={reviews.slice(0, 10)}/>
+                <ReviewsList reviews={reviews.slice(0, 10)}/>
                 { authStatus === AuthorizationStatus.Authorized && <ReviewForm submitHandler={handlePostReview}/> }
               </section>
             </div>
@@ -96,7 +96,7 @@ function OfferPage(): ReactElement {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OfferCardList
+            <OfferCardsList
               offers={nearbyOffers}
               cardType={CardType.Nearby}
             />

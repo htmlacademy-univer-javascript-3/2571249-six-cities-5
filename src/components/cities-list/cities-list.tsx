@@ -10,7 +10,7 @@ import {getActiveCity} from '../../store/offers-list/selectors.ts';
 import {setActiveCity} from '../../store/offers-list/reducers.ts';
 
 
-function CityList(): ReactElement {
+function CitiesList(): ReactElement {
   const cities = CITIES;
   const activeCity = useAppSelector(getActiveCity);
   const dispatch = useAppDispatch();
@@ -41,4 +41,4 @@ function CityList(): ReactElement {
   );
 }
 
-export default CityList;
+export default CitiesList;

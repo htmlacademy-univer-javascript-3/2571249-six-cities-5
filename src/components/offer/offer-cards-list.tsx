@@ -7,14 +7,14 @@ import {Offers} from '../../models/offer.ts';
 import OfferCard from './offer-card.tsx';
 
 
-type OfferCardListProps = {
+type OfferCardsListProps = {
   offers: Offers;
   setActiveOfferId?: (id: string | null) => void;
   cardType: CardType;
 }
 
 
-function OfferCardList({offers, setActiveOfferId, cardType}: OfferCardListProps): ReactElement {
+function OfferCardsList({offers, setActiveOfferId, cardType}: OfferCardsListProps): ReactElement {
   const onChangeActiveOfferId = setActiveOfferId
     ? (id: string | null): void => setActiveOfferId(id)
     : undefined;
@@ -38,4 +38,4 @@ function OfferCardList({offers, setActiveOfferId, cardType}: OfferCardListProps)
   );
 }
 
-export default OfferCardList;
+export default OfferCardsList;
