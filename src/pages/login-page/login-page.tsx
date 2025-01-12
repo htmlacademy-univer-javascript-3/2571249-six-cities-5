@@ -3,7 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 
 import {AppRoute, CITIES} from '../../const.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {fetchOffersAction, loginAction} from '../../store/api-actions.ts';
+import {fetchFavoriteOffersAction, fetchOffersAction, loginAction} from '../../store/api-actions.ts';
 import {setActiveCity} from '../../store/offers-list/reducers.ts';
 
 
@@ -26,6 +26,7 @@ function LoginPage() {
     if (email !== '' && isPasswordValid(password)) {
       dispatch(loginAction({email: email, password: password})).then(() => {
         dispatch(fetchOffersAction());
+        dispatch(fetchFavoriteOffersAction());
         navigate(AppRoute.Main);
       });
     }

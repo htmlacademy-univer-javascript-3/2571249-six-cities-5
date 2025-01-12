@@ -1,10 +1,11 @@
 ﻿import {ReactElement, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import {OfferDetailed} from '../../models/offer-detailed.ts';
 import {capitalize} from '../../helper-functions.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
 import {toggleFavoriteStatusAction} from '../../store/api-actions.ts';
-import {AuthorizationStatus} from '../../const.ts';
+import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
 import {getAuthStatus} from '../../store/user/selectors.ts';
 
@@ -29,9 +30,13 @@ function OfferDetails(
   }: OfferDetailsProps): ReactElement {
   const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [bookmarkActive, setBookmarkActive] = useState(isFavorite || false);
 
   const handleBookmarkClicked = () => {
+    if (authStatus !== AuthorizationStatus.Authorized) {
+      navigate(AppRoute.Login);
+    }
     dispatch(toggleFavoriteStatusAction({offerId: id, status: !bookmarkActive}));
     setBookmarkActive(!bookmarkActive);
   };
@@ -52,7 +57,6 @@ function OfferDetails(
             'offer__bookmark-button button'}
           type='button'
           onClick={handleBookmarkClicked}
-          disabled={authStatus !== AuthorizationStatus.Authorized}
         >
           <svg className="offer__bookmark-icon" width="31" height="33">
             <use xlinkHref="#icon-bookmark"></use>

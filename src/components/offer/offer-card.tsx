@@ -1,13 +1,13 @@
 ﻿import {ReactElement, useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import cn from 'classnames';
 
 import {AppRoute, AuthorizationStatus, CardType} from '../../const.ts';
 import {Offer} from '../../models/offer.ts';
 import {capitalize} from '../../helper-functions.ts';
 import {useAppDispatch} from '../../hooks/use-app-dispatch.ts';
-import {fetchOfferAction, toggleFavoriteStatusAction} from '../../store/api-actions.ts';
 import {useAppSelector} from '../../hooks/use-app-selector.ts';
+import {fetchOfferAction, toggleFavoriteStatusAction} from '../../store/api-actions.ts';
 import {getAuthStatus} from '../../store/user/selectors.ts';
 
 
@@ -31,6 +31,7 @@ function OfferCard({
 }: OfferCardProps): ReactElement {
   const authStatus = useAppSelector(getAuthStatus);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [bookmarkActive, setBookmarkActive] = useState(isFavorite || false);
 
   const offerUrl: string = AppRoute.Offer.replace(':id', id);
@@ -40,6 +41,9 @@ function OfferCard({
   };
 
   const handleBookmarkClicked = () => {
+    if (authStatus !== AuthorizationStatus.Authorized) {
+      navigate(AppRoute.Login);
+    }
     dispatch(toggleFavoriteStatusAction({ offerId: id, status: !bookmarkActive }));
     setBookmarkActive(!bookmarkActive);
   };
@@ -86,7 +90,6 @@ function OfferCard({
               'place-card__bookmark-button button'}
             type="button"
             onClick={handleBookmarkClicked}
-            disabled={authStatus !== AuthorizationStatus.Authorized}
           >
             <svg className="place-card__bookmark-icon" width={18} height={19}>
               <use xlinkHref="#icon-bookmark"></use>

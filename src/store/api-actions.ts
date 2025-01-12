@@ -152,4 +152,5 @@ export const logoutAction = createAsyncThunk<
     dispatch(setUserInfo(undefined));
     dispatch(setUserEmail(''));
     dispatch(setAuthStatus(AuthorizationStatus.Unauthorized));
+    dispatch(setFavoriteOffers([]));
   });
